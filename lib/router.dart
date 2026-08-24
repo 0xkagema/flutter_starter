@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/presentation/pages/auth/sign_up.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/providers/auth.dart';
 import 'presentation/pages/auth/otp.dart';
 import 'presentation/pages/auth/reset_password.dart';
 import 'presentation/pages/auth/sign_in.dart';
+import 'presentation/pages/auth/sign_up.dart';
 import 'presentation/pages/home.dart';
 import 'presentation/pages/interstitial.dart';
 import 'presentation/pages/settings.dart';
