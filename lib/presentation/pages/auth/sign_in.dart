@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/link.dart';
+import 'package:go_router/go_router.dart';
 
 class Credentials {
   final String username;
@@ -57,12 +57,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Link(
-                        uri: Uri.parse('/reset-password'),
-                        builder: (context, followLink) => TextButton(
-                          onPressed: followLink,
-                          child: const Text('Forgot password?'),
-                        ),
+                      child: TextButton(
+                        onPressed: () {
+                          context.go('/reset-password');
+                        },
+                        child: Text('Forgot Password?'),
                       ),
                     ),
 
