@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,7 +11,7 @@ class Credentials {
 }
 
 class SignInScreen extends StatefulWidget {
-  final ValueChanged<Credentials> onSignIn;
+  final FutureOr<void> Function(Credentials credentials) onSignIn;
 
   const SignInScreen({required this.onSignIn, super.key});
 
@@ -22,6 +24,13 @@ class _SignInScreenState extends State<SignInScreen> {
   final _passwordController = TextEditingController();
 
   bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -71,17 +80,33 @@ class _SignInScreenState extends State<SignInScreen> {
                         onPressed: _isLoading
                             ? null
                             : () async {
-                                widget.onSignIn(
-                                  Credentials(
-                                    _usernameController.value.text,
-                                    _passwordController.value.text,
-                                  ),
-                                );
                                 setState(() {
                                   _isLoading = true;
                                 });
+                                try {
+                                  await widget.onSignIn(
+                                    Credentials(
+                                      _usernameController.text,
+                                      _passwordController.text,
+                                    ),
+                                  );
+                                } catch (_) {
+                                  // Error is handled by caller (toast in router)
+                                } finally {
+                                  if (mounted) {
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                  }
+                                }
                               },
-                        child: const Text('Sign in'),
+                        child: _isLoading
+                            ? const SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : const Text('Sign in'),
                       ),
                     ),
                   ],
