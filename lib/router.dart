@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/providers/auth.dart';
+import 'extensions.dart';
 import 'presentation/pages/auth/otp.dart';
 import 'presentation/pages/auth/reset_password.dart';
 import 'presentation/pages/auth/sign_in.dart';
@@ -42,11 +43,17 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             builder: (context) {
               return SignInScreen(
                 onSignIn: (value) async {
-                  final router = GoRouter.of(context);
-                  await ref
-                      .read(authProvider.notifier)
-                      .signIn(value.username, value.password);
-                  router.go('/');
+                  try {
+                    final router = GoRouter.of(context);
+                    await ref
+                        .read(authProvider.notifier)
+                        .signIn(value.username, value.password);
+                    router.go('/');
+                    // Show a success toast after successful sign-in
+                    context.showSuccessToast('Signed in successfully');
+                  } catch (e) {
+                    context.showErrorToast(e.toString());
+                  }
                 },
               );
             },
