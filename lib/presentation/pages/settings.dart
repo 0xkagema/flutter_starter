@@ -1,56 +1,93 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/providers/theme.dart';
+import '../theme/theme.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var brightness = ref.watch(themeProvider);
+    final themeMode = ref.watch(themeProvider);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final canPop = Navigator.of(context).canPop();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
-        leading: IconButton(
-          onPressed: () {
-            context.go('/');
-          },
-          icon: Icon(Icons.arrow_back_ios),
-        ),
+        automaticallyImplyLeading: false,
+        leading: canPop
+            ? IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                tooltip: 'Back',
+              )
+            : null,
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Container(
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: const BoxConstraints(maxWidth: 680),
           child: ListView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.md,
+            ),
             children: [
+              _SingleSection(
+                title: "Appearance",
+                children: [
+                  _CustomListTile(
+                    title: "Dark Mode",
+                    icon: isDark ? CupertinoIcons.moon_fill : CupertinoIcons.moon,
+                    trailing: Semantics(
+                      label: 'Toggle dark mode',
+                      toggled: themeMode == ThemeMode.dark,
+                      child: CupertinoSwitch(
+                        activeTrackColor: BrandColors.primary,
+                        value: themeMode == ThemeMode.dark,
+                        onChanged: (value) {
+                          ref.read(themeProvider.notifier).toggleTheme();
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
               _SingleSection(
                 title: "General",
                 children: [
                   const _CustomListTile(
-                    title: "About Phone",
-                    icon: CupertinoIcons.device_phone_portrait,
-                  ),
-                  _CustomListTile(
-                    title: "Dark Mode",
-                    icon: CupertinoIcons.moon,
-                    trailing: CupertinoSwitch(
-                      value: brightness == ThemeMode.dark ? true : false,
-                      onChanged: (value) {
-                        ref.read(themeProvider.notifier).toggleTheme();
-                      },
-                    ),
+                    title: "About Application",
+                    icon: CupertinoIcons.info_circle,
                   ),
                   const _CustomListTile(
-                    title: "System Apps Updater",
+                    title: "System Updates",
                     icon: CupertinoIcons.cloud_download,
                   ),
                   const _CustomListTile(
-                    title: "Security Status",
+                    title: "Security & Privacy",
                     icon: CupertinoIcons.lock_shield,
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
+              _SingleSection(
+                title: "Support",
+                children: [
+                  const _CustomListTile(
+                    title: "Help Center",
+                    icon: CupertinoIcons.question_circle,
+                  ),
+                  const _CustomListTile(
+                    title: "Send Feedback",
+                    icon: CupertinoIcons.chat_bubble_2,
                   ),
                 ],
               ),
@@ -66,6 +103,7 @@ class _CustomListTile extends StatelessWidget {
   final String title;
   final IconData icon;
   final Widget? trailing;
+
   const _CustomListTile({
     required this.title,
     required this.icon,
@@ -74,10 +112,28 @@ class _CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return ListTile(
-      title: Text(title),
-      leading: Icon(icon),
-      trailing: trailing ?? const Icon(CupertinoIcons.forward, size: 18),
+      title: Text(
+        title,
+        style: GoogleFonts.ibmPlexSans(
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+          color: isDark ? BrandColors.white : BrandColors.darkGrey,
+        ),
+      ),
+      leading: Icon(
+        icon,
+        color: BrandColors.primary,
+        size: 22,
+      ),
+      trailing: trailing ??
+          Icon(
+            CupertinoIcons.forward,
+            size: 18,
+            color: BrandColors.neutral,
+          ),
       onTap: () {},
     );
   }
@@ -86,27 +142,44 @@ class _CustomListTile extends StatelessWidget {
 class _SingleSection extends StatelessWidget {
   final String title;
   final List<Widget> children;
+
   const _SingleSection({required this.title, required this.children});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 16),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.sm,
+            vertical: AppSpacing.xs,
+          ),
           child: Text(
             title.toUpperCase(),
-            style: Theme.of(
-              context,
-            ).textTheme.headlineMedium?.copyWith(fontSize: 16),
+            style: GoogleFonts.ibmPlexSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1.1,
+              color: BrandColors.neutral,
+            ),
           ),
         ),
-        Container(
-          width: double.infinity,
-          color: Theme.of(context).primaryColor.withValues(alpha: 0.05),
+        const SizedBox(height: AppSpacing.xs),
+        Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppRadius.md),
+            side: BorderSide(
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.08)
+                  : Colors.black.withValues(alpha: 0.08),
+            ),
+          ),
+          color: isDark ? BrandColors.darkGrey : BrandColors.white,
           child: Column(children: children),
         ),
       ],

@@ -8,10 +8,13 @@ import 'presentation/pages/auth/otp.dart';
 import 'presentation/pages/auth/reset_password.dart';
 import 'presentation/pages/auth/sign_in.dart';
 import 'presentation/pages/auth/sign_up.dart';
+import 'presentation/pages/books.dart';
 import 'presentation/pages/home.dart';
 import 'presentation/pages/interstitial.dart';
+import 'presentation/pages/profile.dart';
 import 'presentation/pages/settings.dart';
 import 'presentation/widgets/fade_transition_page.dart';
+import 'presentation/widgets/nav.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final refreshNotifier = ref.watch(routerRefreshProvider);
@@ -50,9 +53,13 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                         .signIn(value.username, value.password);
                     router.go('/');
                     // Show a success toast after successful sign-in
-                    context.showSuccessToast('Signed in successfully');
+                    if (context.mounted) {
+                      context.showSuccessToast('Signed in successfully');
+                    }
                   } catch (e) {
-                    context.showErrorToast(e.toString());
+                    if (context.mounted) {
+                      context.showErrorToast(e.toString());
+                    }
                   }
                 },
               );
@@ -91,14 +98,40 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       ShellRoute(
-        pageBuilder: (context, state, child) {
-          return FadeTransitionPage(key: state.pageKey, child: child);
+        builder: (context, state, child) {
+          return AppBaseLayout(
+            currentPath: state.uri.path,
+            child: child,
+          );
         },
         routes: [
-          GoRoute(path: '/', builder: (context, state) => const HomePage()),
+          GoRoute(
+            path: '/',
+            pageBuilder: (context, state) => FadeTransitionPage(
+              key: state.pageKey,
+              child: const HomePage(),
+            ),
+          ),
+          GoRoute(
+            path: '/books',
+            pageBuilder: (context, state) => FadeTransitionPage(
+              key: state.pageKey,
+              child: const BooksPage(),
+            ),
+          ),
+          GoRoute(
+            path: '/profile',
+            pageBuilder: (context, state) => FadeTransitionPage(
+              key: state.pageKey,
+              child: const ProfilePage(),
+            ),
+          ),
           GoRoute(
             path: '/settings',
-            builder: (context, state) => const SettingsPage(),
+            pageBuilder: (context, state) => FadeTransitionPage(
+              key: state.pageKey,
+              child: const SettingsPage(),
+            ),
           ),
         ],
       ),

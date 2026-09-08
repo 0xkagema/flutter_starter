@@ -71,15 +71,15 @@ class _SignInScreenState extends State<SignInScreen> {
                         onPressed: _isLoading
                             ? null
                             : () async {
-                                setState(() {
-                                  _isLoading = true;
-                                });
                                 widget.onSignIn(
                                   Credentials(
                                     _usernameController.value.text,
                                     _passwordController.value.text,
                                   ),
                                 );
+                                setState(() {
+                                  _isLoading = true;
+                                });
                               },
                         child: const Text('Sign in'),
                       ),

@@ -63,6 +63,50 @@ class AppTheme {
         iconTheme: const IconThemeData(color: BrandColors.white, size: 24),
       ),
 
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: BrandColors.darkGrey,
+        indicatorColor: BrandColors.primary.withValues(alpha: 0.2),
+        elevation: 0,
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return const IconThemeData(color: BrandColors.primary, size: 24);
+          }
+          return const IconThemeData(color: BrandColors.neutral, size: 24);
+        }),
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return GoogleFonts.ibmPlexSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: BrandColors.primary,
+            );
+          }
+          return GoogleFonts.ibmPlexSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: BrandColors.neutral,
+          );
+        }),
+      ),
+
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: BrandColors.darkGrey,
+        elevation: 0,
+        indicatorColor: BrandColors.primary.withValues(alpha: 0.2),
+        selectedIconTheme: const IconThemeData(color: BrandColors.primary, size: 24),
+        unselectedIconTheme: const IconThemeData(color: BrandColors.neutral, size: 24),
+        selectedLabelTextStyle: GoogleFonts.ibmPlexSans(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: BrandColors.primary,
+        ),
+        unselectedLabelTextStyle: GoogleFonts.ibmPlexSans(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+          color: BrandColors.neutral,
+        ),
+      ),
+
       textTheme: TextTheme(
         displayLarge: GoogleFonts.ibmPlexSans(
           fontSize: 57,
@@ -178,6 +222,50 @@ class AppTheme {
           color: BrandColors.white,
         ),
         iconTheme: const IconThemeData(color: BrandColors.white, size: 24),
+      ),
+
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: BrandColors.white,
+        indicatorColor: BrandColors.primary.withValues(alpha: 0.15),
+        elevation: 0,
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return const IconThemeData(color: BrandColors.primary, size: 24);
+          }
+          return const IconThemeData(color: BrandColors.neutral, size: 24);
+        }),
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return GoogleFonts.ibmPlexSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: BrandColors.primary,
+            );
+          }
+          return GoogleFonts.ibmPlexSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: BrandColors.neutral,
+          );
+        }),
+      ),
+
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: BrandColors.white,
+        elevation: 0,
+        indicatorColor: BrandColors.primary.withValues(alpha: 0.15),
+        selectedIconTheme: const IconThemeData(color: BrandColors.primary, size: 24),
+        unselectedIconTheme: const IconThemeData(color: BrandColors.neutral, size: 24),
+        selectedLabelTextStyle: GoogleFonts.ibmPlexSans(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: BrandColors.primary,
+        ),
+        unselectedLabelTextStyle: GoogleFonts.ibmPlexSans(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+          color: BrandColors.neutral,
+        ),
       ),
 
       textTheme: TextTheme(
