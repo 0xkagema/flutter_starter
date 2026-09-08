@@ -44,7 +44,9 @@ class SettingsPage extends ConsumerWidget {
                 children: [
                   _CustomListTile(
                     title: "Dark Mode",
-                    icon: isDark ? CupertinoIcons.moon_fill : CupertinoIcons.moon,
+                    icon: isDark
+                        ? CupertinoIcons.moon_fill
+                        : CupertinoIcons.moon,
                     trailing: Semantics(
                       label: 'Toggle dark mode',
                       toggled: themeMode == ThemeMode.dark,
@@ -63,9 +65,12 @@ class SettingsPage extends ConsumerWidget {
               _SingleSection(
                 title: "General",
                 children: [
-                  const _CustomListTile(
+                  _CustomListTile(
                     title: "About Application",
                     icon: CupertinoIcons.info_circle,
+                    onTap: () {
+                      showAboutDialog(context: context);
+                    },
                   ),
                   const _CustomListTile(
                     title: "System Updates",
@@ -103,11 +108,14 @@ class _CustomListTile extends StatelessWidget {
   final String title;
   final IconData icon;
   final Widget? trailing;
+  // callback function when tapped
+  final VoidCallback? onTap;
 
   const _CustomListTile({
     required this.title,
     required this.icon,
     this.trailing,
+    this.onTap,
   });
 
   @override
@@ -123,18 +131,11 @@ class _CustomListTile extends StatelessWidget {
           color: isDark ? BrandColors.white : BrandColors.darkGrey,
         ),
       ),
-      leading: Icon(
-        icon,
-        color: BrandColors.primary,
-        size: 22,
-      ),
-      trailing: trailing ??
-          Icon(
-            CupertinoIcons.forward,
-            size: 18,
-            color: BrandColors.neutral,
-          ),
-      onTap: () {},
+      leading: Icon(icon, color: BrandColors.primary, size: 22),
+      trailing:
+          trailing ??
+          Icon(CupertinoIcons.forward, size: 18, color: BrandColors.neutral),
+      onTap: onTap,
     );
   }
 }

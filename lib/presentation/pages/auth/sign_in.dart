@@ -68,7 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextButton(
                         onPressed: () {
-                          context.go('/reset-password');
+                          context.go('/password-reset-email');
                         },
                         child: Text('Forgot Password?'),
                       ),
@@ -104,7 +104,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             ? const SizedBox(
                                 width: 16,
                                 height: 16,
-                                child: CircularProgressIndicator(strokeWidth: 2),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
                               )
                             : const Text('Sign in'),
                       ),

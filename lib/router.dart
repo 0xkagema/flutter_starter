@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'core/providers/auth.dart';
 import 'extensions.dart';
 import 'presentation/pages/auth/otp.dart';
+import 'presentation/pages/auth/password_reset_email.dart';
 import 'presentation/pages/auth/reset_password.dart';
 import 'presentation/pages/auth/sign_in.dart';
 import 'presentation/pages/auth/sign_up.dart';
@@ -30,7 +31,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       if (!signedIn &&
           state.uri.path != '/sign-in' &&
           state.uri.path != '/sign-up' &&
-          state.uri.path != '/reset-password') {
+          state.uri.path != '/reset-password' &&
+          state.uri.path != '/password-reset-email') {
         return '/sign-in';
       }
 
@@ -90,6 +92,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           );
         },
       ),
+      GoRoute(
+        path: '/password-reset-email',
+        builder: (context, state) => const PasswordResetEmailPage(),
+      ),
       GoRoute(path: '/2fa', builder: (context, state) => const OtpPage()),
 
       GoRoute(
@@ -99,18 +105,13 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
       ShellRoute(
         builder: (context, state, child) {
-          return AppBaseLayout(
-            currentPath: state.uri.path,
-            child: child,
-          );
+          return AppBaseLayout(currentPath: state.uri.path, child: child);
         },
         routes: [
           GoRoute(
             path: '/',
-            pageBuilder: (context, state) => FadeTransitionPage(
-              key: state.pageKey,
-              child: const HomePage(),
-            ),
+            pageBuilder: (context, state) =>
+                FadeTransitionPage(key: state.pageKey, child: const HomePage()),
           ),
           GoRoute(
             path: '/books',
