@@ -1,0 +1,8 @@
+{
+  "@@locale": "sw",
+  "hello": "Habari",
+  "greetUser": "Karibu, {username}!",
+  "language": "Lugha",
+  "english": "Kiingereza",
+  "swahili": "Kiswahili"
+}

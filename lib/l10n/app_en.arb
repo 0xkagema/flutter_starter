@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  "hello": "Hello",
+  "greetUser": "Welcome, {username}!",
+  "language": "Language",
+  "english": "English",
+  "swahili": "Kiswahili"
+}

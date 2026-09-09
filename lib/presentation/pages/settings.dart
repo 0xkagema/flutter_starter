@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/providers/locale.dart';
 import '../../core/providers/theme.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/theme.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -12,8 +14,10 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeProvider);
+    final locale = ref.watch(localeProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final canPop = Navigator.of(context).canPop();
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -63,6 +67,17 @@ class SettingsPage extends ConsumerWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               _SingleSection(
+                title: l10n?.language ?? 'Language',
+                children: [
+                  _LanguageListTile(
+                    locale: locale,
+                    englishLabel: l10n?.english ?? 'English',
+                    swahiliLabel: l10n?.swahili ?? 'Kiswahili',
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
+              _SingleSection(
                 title: "General",
                 children: [
                   _CustomListTile(
@@ -98,6 +113,48 @@ class SettingsPage extends ConsumerWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LanguageListTile extends ConsumerWidget {
+  final Locale locale;
+  final String englishLabel;
+  final String swahiliLabel;
+
+  const _LanguageListTile({
+    required this.locale,
+    required this.englishLabel,
+    required this.swahiliLabel,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final languageName = locale.languageCode == 'sw'
+        ? swahiliLabel
+        : englishLabel;
+
+    return _CustomListTile(
+      title: languageName,
+      icon: CupertinoIcons.globe,
+      trailing: PopupMenuButton<Locale>(
+        tooltip: AppLocalizations.of(context)?.language ?? 'Language',
+        onSelected: (value) {
+          ref.read(localeProvider.notifier).setLocale(value);
+        },
+        itemBuilder: (context) => [
+          PopupMenuItem(value: const Locale('en'), child: Text(englishLabel)),
+          PopupMenuItem(value: const Locale('sw'), child: Text(swahiliLabel)),
+        ],
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(languageName),
+            const SizedBox(width: AppSpacing.xs),
+            const Icon(CupertinoIcons.chevron_down, size: 16),
+          ],
         ),
       ),
     );
