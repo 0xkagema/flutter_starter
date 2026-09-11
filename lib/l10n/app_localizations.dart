@@ -127,6 +127,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Kiswahili'**
   String get swahili;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @navigate_home.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate to Home'**
+  String get navigate_home;
+
+  /// No description provided for @home_tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Tab'**
+  String get home_tab;
+
+  /// No description provided for @books.
+  ///
+  /// In en, this message translates to:
+  /// **'Books'**
+  String get books;
+
+  /// No description provided for @navigate_books.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate to Books'**
+  String get navigate_books;
+
+  /// No description provided for @books_tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Books Tab'**
+  String get books_tab;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @navigate_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate to Settings'**
+  String get navigate_settings;
+
+  /// No description provided for @settings_tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings Tab'**
+  String get settings_tab;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @navigate_profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate to Profile'**
+  String get navigate_profile;
+
+  /// No description provided for @profile_tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Tab'**
+  String get profile_tab;
+
+  /// No description provided for @main_app_nav.
+  ///
+  /// In en, this message translates to:
+  /// **'Main App Navigation'**
+  String get main_app_nav;
+
+  /// No description provided for @side_app_nav.
+  ///
+  /// In en, this message translates to:
+  /// **'Main application side navigation'**
+  String get side_app_nav;
+
+  /// No description provided for @branding_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Flutter Starter brand heading'**
+  String get branding_heading;
+
+  /// No description provided for @theme_switch_light.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Light appearance mode'**
+  String get theme_switch_light;
+
+  /// No description provided for @theme_switch_dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Dark appearance mode'**
+  String get theme_switch_dark;
+
+  /// No description provided for @light_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Mode'**
+  String get light_mode;
+
+  /// No description provided for @dark_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get dark_mode;
+
+  /// No description provided for @collapse_sidebar.
+  ///
+  /// In en, this message translates to:
+  /// **'Collapse Sidebar'**
+  String get collapse_sidebar;
+
+  /// No description provided for @expand_sidebar.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand Sidebar'**
+  String get expand_sidebar;
+
+  /// No description provided for @collapse_side_nav.
+  ///
+  /// In en, this message translates to:
+  /// **'Collapse Side Navigation'**
+  String get collapse_side_nav;
+
+  /// No description provided for @expand_side_nav.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand Side Navigation'**
+  String get expand_side_nav;
+
+  /// No description provided for @collapse.
+  ///
+  /// In en, this message translates to:
+  /// **'Collapse'**
+  String get collapse;
 }
 
 class _AppLocalizationsDelegate
