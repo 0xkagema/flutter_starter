@@ -8,6 +8,7 @@ import 'core/http/client.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ApiClient.instance.init();
+
   runApp(
     ProviderScope(
       child: ToastificationWrapper(

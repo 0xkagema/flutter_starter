@@ -271,6 +271,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Collapse'**
   String get collapse;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearance;
+
+  /// No description provided for @toggle_dark_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle Dark Mode'**
+  String get toggle_dark_mode;
+
+  /// No description provided for @general.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get general;
+
+  /// No description provided for @about_application.
+  ///
+  /// In en, this message translates to:
+  /// **'About Application'**
+  String get about_application;
+
+  /// No description provided for @system_update.
+  ///
+  /// In en, this message translates to:
+  /// **'System Updates'**
+  String get system_update;
+
+  /// No description provided for @security_privacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Security & Privacy'**
+  String get security_privacy;
+
+  /// No description provided for @support.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get support;
+
+  /// No description provided for @help_center.
+  ///
+  /// In en, this message translates to:
+  /// **'Help Center'**
+  String get help_center;
+
+  /// No description provided for @send_feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Feedback'**
+  String get send_feedback;
 }
 
 class _AppLocalizationsDelegate

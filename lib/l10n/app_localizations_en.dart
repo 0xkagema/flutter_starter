@@ -96,4 +96,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get collapse => 'Collapse';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get appearance => 'Appearance';
+
+  @override
+  String get toggle_dark_mode => 'Toggle Dark Mode';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get about_application => 'About Application';
+
+  @override
+  String get system_update => 'System Updates';
+
+  @override
+  String get security_privacy => 'Security & Privacy';
+
+  @override
+  String get support => 'Support';
+
+  @override
+  String get help_center => 'Help Center';
+
+  @override
+  String get send_feedback => 'Send Feedback';
 }

@@ -8,6 +8,11 @@ import '../../core/providers/theme.dart';
 import '../../l10n/app_localizations.dart';
 import '../theme/theme.dart';
 
+AppLocalizations _getAppLocalizations(BuildContext context) {
+  return AppLocalizations.of(context) ??
+      lookupAppLocalizations(const Locale('en'));
+}
+
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
@@ -17,11 +22,11 @@ class SettingsPage extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final canPop = Navigator.of(context).canPop();
-    final l10n = AppLocalizations.of(context);
+    final l10n = _getAppLocalizations(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: Text(l10n.settings),
         automaticallyImplyLeading: false,
         leading: canPop
             ? IconButton(
@@ -29,7 +34,7 @@ class SettingsPage extends ConsumerWidget {
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                tooltip: 'Back',
+                tooltip: l10n.back,
               )
             : null,
       ),
@@ -44,15 +49,15 @@ class SettingsPage extends ConsumerWidget {
             ),
             children: [
               _SingleSection(
-                title: "Appearance",
+                title: l10n.appearance,
                 children: [
                   _CustomListTile(
-                    title: "Dark Mode",
+                    title: l10n.dark_mode,
                     icon: isDark
                         ? CupertinoIcons.moon_fill
                         : CupertinoIcons.moon,
                     trailing: Semantics(
-                      label: 'Toggle dark mode',
+                      label: l10n.toggle_dark_mode,
                       toggled: themeMode == ThemeMode.dark,
                       child: CupertinoSwitch(
                         activeTrackColor: BrandColors.primary,
@@ -67,46 +72,46 @@ class SettingsPage extends ConsumerWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               _SingleSection(
-                title: l10n?.language ?? 'Language',
+                title: l10n.language,
                 children: [
                   _LanguageListTile(
                     locale: locale,
-                    englishLabel: l10n?.english ?? 'English',
-                    swahiliLabel: l10n?.swahili ?? 'Kiswahili',
+                    englishLabel: l10n.english,
+                    swahiliLabel: l10n.swahili,
                   ),
                 ],
               ),
               const SizedBox(height: AppSpacing.md),
               _SingleSection(
-                title: "General",
+                title: l10n.general,
                 children: [
                   _CustomListTile(
-                    title: "About Application",
+                    title: l10n.about_application,
                     icon: CupertinoIcons.info_circle,
                     onTap: () {
                       showAboutDialog(context: context);
                     },
                   ),
-                  const _CustomListTile(
-                    title: "System Updates",
+                  _CustomListTile(
+                    title: l10n.system_update,
                     icon: CupertinoIcons.cloud_download,
                   ),
-                  const _CustomListTile(
-                    title: "Security & Privacy",
+                  _CustomListTile(
+                    title: l10n.security_privacy,
                     icon: CupertinoIcons.lock_shield,
                   ),
                 ],
               ),
               const SizedBox(height: AppSpacing.md),
               _SingleSection(
-                title: "Support",
+                title: l10n.support,
                 children: [
-                  const _CustomListTile(
-                    title: "Help Center",
+                  _CustomListTile(
+                    title: l10n.help_center,
                     icon: CupertinoIcons.question_circle,
                   ),
-                  const _CustomListTile(
-                    title: "Send Feedback",
+                  _CustomListTile(
+                    title: l10n.send_feedback,
                     icon: CupertinoIcons.chat_bubble_2,
                   ),
                 ],

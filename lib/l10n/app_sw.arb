@@ -28,5 +28,19 @@
   "expand_sidebar": "Panua Upande wa Upande",
   "collapse_side_nav": "Punguza Urambazaji wa Upande",
   "expand_side_nav": "Panua Urambazaji wa Upande",
-  "collapse": "Punguza"
+  "collapse": "Punguza",
+  "back": "Rudi",
+  "appearance": "Muonekano",
+  "toggle_dark_mode": "Badilisha Hali ya Giza",
+  "general": "Kawaida",
+  "about_application": "Kuhusu Programu",
+  "system_update": "Sasisho la Mfumo",
+  "security_privacy": "Usalama na Faragha",
+  "support": "Msaada",
+  "help_center": "Kituo cha Msaada",
+  "send_feedback": "Tuma Maoni",
+  "sign_out": "Toka",
+  "sign_out_confirmation": "Je, una uhakika unataka kutoka kwenye akaunti yako?",
+  "cancel": "Ghairi",
+  "signout_success": "Umetoka kwa mafanikio"
 }

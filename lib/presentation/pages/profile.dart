@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_starter/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/providers/auth.dart';
 import '../../extensions.dart';
 import '../theme/theme.dart';
+
+AppLocalizations _getAppLocalizations(BuildContext context) {
+  return AppLocalizations.of(context) ??
+      lookupAppLocalizations(const Locale('en'));
+}
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -16,7 +22,9 @@ class ProfilePage extends ConsumerWidget {
       builder: (dialogContext) {
         return AlertDialog(
           title: const Text('Sign Out'),
-          content: const Text('Are you sure you want to sign out of your account?'),
+          content: const Text(
+            'Are you sure you want to sign out of your account?',
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
@@ -46,11 +54,10 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = _getAppLocalizations(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
+      appBar: AppBar(title: Text(l10n.profile)),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 680),
@@ -102,7 +109,9 @@ class ProfilePage extends ConsumerWidget {
                         style: GoogleFonts.ibmPlexSans(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
-                          color: isDark ? BrandColors.white : BrandColors.darkGrey,
+                          color: isDark
+                              ? BrandColors.white
+                              : BrandColors.darkGrey,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -242,7 +251,10 @@ class ProfilePage extends ConsumerWidget {
                     ),
                   ),
                   onPressed: () => _handleSignOut(context, ref),
-                  icon: const Icon(Icons.logout_rounded, color: BrandColors.danger),
+                  icon: const Icon(
+                    Icons.logout_rounded,
+                    color: BrandColors.danger,
+                  ),
                   label: Text(
                     'Sign Out',
                     style: GoogleFonts.ibmPlexSans(

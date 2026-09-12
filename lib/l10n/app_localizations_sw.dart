@@ -96,4 +96,34 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get collapse => 'Punguza';
+
+  @override
+  String get back => 'Rudi';
+
+  @override
+  String get appearance => 'Muonekano';
+
+  @override
+  String get toggle_dark_mode => 'Badilisha Hali ya Giza';
+
+  @override
+  String get general => 'Kawaida';
+
+  @override
+  String get about_application => 'Kuhusu Programu';
+
+  @override
+  String get system_update => 'Sasisho la Mfumo';
+
+  @override
+  String get security_privacy => 'Usalama na Faragha';
+
+  @override
+  String get support => 'Msaada';
+
+  @override
+  String get help_center => 'Kituo cha Msaada';
+
+  @override
+  String get send_feedback => 'Tuma Maoni';
 }
