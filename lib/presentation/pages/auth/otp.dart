@@ -2,6 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../../l10n/app_localizations.dart';
+
+AppLocalizations _getAppLocalizations(BuildContext context) {
+  return AppLocalizations.of(context) ??
+      lookupAppLocalizations(const Locale('en'));
+}
+
 class OtpPage extends StatefulWidget {
   const OtpPage({super.key});
 
@@ -50,23 +57,25 @@ class _OtpPageState extends State<OtpPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = _getAppLocalizations(context);
+    final resendTime = '0:${_seconds.toString().padLeft(2, '0')}';
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Verification')),
+      appBar: AppBar(title: Text(l10n.verification)),
       body: Column(
         children: [
           const SizedBox(height: 24),
           Icon(Icons.verified_user_outlined, size: 56, color: scheme.primary),
           const SizedBox(height: 16),
           Text(
-            'Two-factor authentication',
+            l10n.two_factor_auth,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Enter the 6-digit code sent to •••• 4821',
+            l10n.otp_code_sent_to('6', '•••• 4821'),
             style: theme.textTheme.bodyMedium?.copyWith(
               color: scheme.onSurfaceVariant,
             ),
@@ -98,12 +107,12 @@ class _OtpPageState extends State<OtpPage> {
           const SizedBox(height: 20),
           _seconds > 0
               ? Text(
-                  'Resend code in 0:${_seconds.toString().padLeft(2, '0')}',
+                  l10n.resend_code_in(resendTime),
                   style: TextStyle(color: scheme.onSurfaceVariant),
                 )
               : TextButton(
                   onPressed: _startTimer,
-                  child: const Text('Resend code'),
+                  child: Text(l10n.resend_code),
                 ),
           const Spacer(),
           _Keypad(onTap: _tap, onBackspace: _back),

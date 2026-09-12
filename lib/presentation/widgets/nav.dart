@@ -4,7 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/providers/theme.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/theme.dart';
+
+AppLocalizations _getAppLocalizations(BuildContext context) {
+  return AppLocalizations.of(context) ??
+      lookupAppLocalizations(const Locale('en'));
+}
 
 /// Navigation item model describing each top-level destination.
 class AppNavItem {
@@ -26,38 +32,38 @@ class AppNavItem {
 }
 
 /// The 4 primary navigation destinations: Home, Books, Profile, Settings.
-const List<AppNavItem> appNavItems = [
+List<AppNavItem> appNavItems(AppLocalizations l10n) => [
   AppNavItem(
-    label: 'Home',
+    label: l10n.home,
     path: '/',
     icon: Icons.home_outlined,
     selectedIcon: Icons.home_rounded,
-    tooltip: 'Navigate to Home',
-    semanticsLabel: 'Home tab',
+    tooltip: l10n.navigate_home,
+    semanticsLabel: l10n.home_tab,
   ),
   AppNavItem(
-    label: 'Books',
+    label: l10n.books,
     path: '/books',
     icon: Icons.menu_book_outlined,
     selectedIcon: Icons.menu_book_rounded,
-    tooltip: 'Navigate to Books',
-    semanticsLabel: 'Books tab',
+    tooltip: l10n.navigate_books,
+    semanticsLabel: l10n.books_tab,
   ),
   AppNavItem(
-    label: 'Profile',
+    label: l10n.profile,
     path: '/profile',
     icon: Icons.person_outline_rounded,
     selectedIcon: Icons.person_rounded,
-    tooltip: 'Navigate to Profile',
-    semanticsLabel: 'Profile tab',
+    tooltip: l10n.navigate_profile,
+    semanticsLabel: l10n.profile_tab,
   ),
   AppNavItem(
-    label: 'Settings',
+    label: l10n.settings,
     path: '/settings',
     icon: Icons.settings_outlined,
     selectedIcon: Icons.settings_rounded,
-    tooltip: 'Navigate to Settings',
-    semanticsLabel: 'Settings tab',
+    tooltip: l10n.navigate_settings,
+    semanticsLabel: l10n.settings_tab,
   ),
 ];
 
@@ -88,11 +94,7 @@ class AppBaseLayout extends ConsumerStatefulWidget {
   final Widget child;
   final String? currentPath;
 
-  const AppBaseLayout({
-    super.key,
-    required this.child,
-    this.currentPath,
-  });
+  const AppBaseLayout({super.key, required this.child, this.currentPath});
 
   @override
   ConsumerState<AppBaseLayout> createState() => _AppBaseLayoutState();
@@ -103,9 +105,11 @@ class _AppBaseLayoutState extends ConsumerState<AppBaseLayout> {
   bool? _manuallyExpanded;
 
   void _onNavigate(BuildContext context, int index) {
-    if (index < 0 || index >= appNavItems.length) return;
-    final targetPath = appNavItems[index].path;
-    final currentPath = widget.currentPath ?? GoRouterState.of(context).uri.path;
+    final navItems = appNavItems(_getAppLocalizations(context));
+    if (index < 0 || index >= navItems.length) return;
+    final targetPath = navItems[index].path;
+    final currentPath =
+        widget.currentPath ?? GoRouterState.of(context).uri.path;
     if (currentPath != targetPath) {
       context.go(targetPath);
     }
@@ -113,14 +117,16 @@ class _AppBaseLayoutState extends ConsumerState<AppBaseLayout> {
 
   @override
   Widget build(BuildContext context) {
-    final currentPath = widget.currentPath ?? GoRouterState.of(context).uri.path;
+    final currentPath =
+        widget.currentPath ?? GoRouterState.of(context).uri.path;
     final selectedIndex = getNavIndexForLocation(currentPath);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final isLargeScreen = constraints.maxWidth >= AppNavBreakpoints.medium;
-        final isExtended = _manuallyExpanded ??
+        final isExtended =
+            _manuallyExpanded ??
             (constraints.maxWidth >= AppNavBreakpoints.expanded);
 
         if (isLargeScreen) {
@@ -145,20 +151,14 @@ class _AppBaseLayoutState extends ConsumerState<AppBaseLayout> {
                       : Colors.black.withValues(alpha: 0.08),
                 ),
                 Expanded(
-                  child: KeyedSubtree(
-                    key: _contentKey,
-                    child: widget.child,
-                  ),
+                  child: KeyedSubtree(key: _contentKey, child: widget.child),
                 ),
               ],
             ),
           );
         } else {
           return Scaffold(
-            body: KeyedSubtree(
-              key: _contentKey,
-              child: widget.child,
-            ),
+            body: KeyedSubtree(key: _contentKey, child: widget.child),
             bottomNavigationBar: AppBottomNavigation(
               selectedIndex: selectedIndex,
               onDestinationSelected: (index) => _onNavigate(context, index),
@@ -183,10 +183,12 @@ class AppBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = _getAppLocalizations(context);
+    final navItems = appNavItems(l10n);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Semantics(
-      label: 'Main application navigation',
+      label: l10n.main_app_nav,
       container: true,
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -202,20 +204,22 @@ class AppBottomNavigation extends StatelessWidget {
         child: NavigationBar(
           selectedIndex: selectedIndex,
           onDestinationSelected: onDestinationSelected,
-          destinations: appNavItems.asMap().entries.map((entry) {
+          destinations: navItems.asMap().entries.map((entry) {
             final index = entry.key;
             final item = entry.value;
             final isSelected = index == selectedIndex;
 
             return NavigationDestination(
               icon: Semantics(
-                label: '${item.semanticsLabel}, tab ${index + 1} of ${appNavItems.length}',
+                label:
+                    '${item.semanticsLabel}, tab ${index + 1} of ${navItems.length}',
                 selected: isSelected,
                 button: true,
                 child: Icon(item.icon),
               ),
               selectedIcon: Semantics(
-                label: '${item.semanticsLabel}, tab ${index + 1} of ${appNavItems.length}, selected',
+                label:
+                    '${item.semanticsLabel}, tab ${index + 1} of ${navItems.length}, selected',
                 selected: isSelected,
                 button: true,
                 child: Icon(item.selectedIcon),
@@ -247,13 +251,16 @@ class AppSideNavigation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = _getAppLocalizations(context);
+    final navItems = appNavItems(l10n);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final navRailTheme = Theme.of(context).navigationRailTheme;
-    final bgColor = navRailTheme.backgroundColor ??
+    final bgColor =
+        navRailTheme.backgroundColor ??
         (isDark ? BrandColors.darkGrey : BrandColors.white);
 
     return Semantics(
-      label: 'Main application side navigation',
+      label: l10n.side_app_nav,
       container: true,
       child: Container(
         color: bgColor,
@@ -276,7 +283,7 @@ class AppSideNavigation extends ConsumerWidget {
                 minWidth: 72,
                 minExtendedWidth: 220,
                 backgroundColor: Colors.transparent,
-                destinations: appNavItems.asMap().entries.map((entry) {
+                destinations: navItems.asMap().entries.map((entry) {
                   final index = entry.key;
                   final item = entry.value;
                   final isSelected = index == selectedIndex;
@@ -285,7 +292,8 @@ class AppSideNavigation extends ConsumerWidget {
                     icon: Tooltip(
                       message: item.tooltip,
                       child: Semantics(
-                        label: '${item.semanticsLabel}, tab ${index + 1} of ${appNavItems.length}',
+                        label:
+                            '${item.semanticsLabel}, tab ${index + 1} of ${navItems.length}',
                         selected: isSelected,
                         button: true,
                         child: Icon(item.icon),
@@ -294,7 +302,8 @@ class AppSideNavigation extends ConsumerWidget {
                     selectedIcon: Tooltip(
                       message: item.tooltip,
                       child: Semantics(
-                        label: '${item.semanticsLabel}, tab ${index + 1} of ${appNavItems.length}, selected',
+                        label:
+                            '${item.semanticsLabel}, tab ${index + 1} of ${navItems.length}, selected',
                         selected: isSelected,
                         button: true,
                         child: Icon(item.selectedIcon),
@@ -304,7 +313,9 @@ class AppSideNavigation extends ConsumerWidget {
                       item.label,
                       style: GoogleFonts.ibmPlexSans(
                         fontSize: 13,
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                        fontWeight: isSelected
+                            ? FontWeight.w600
+                            : FontWeight.w500,
                       ),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 8),
@@ -322,14 +333,17 @@ class AppSideNavigation extends ConsumerWidget {
   }
 
   Widget _buildBrandHeader(BuildContext context) {
+    final l10n = _getAppLocalizations(context);
+
     return Semantics(
       header: true,
-      label: 'Flutter Starter brand heading',
+      label: l10n.branding_heading,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
         child: Row(
-          mainAxisAlignment:
-              isExtended ? MainAxisAlignment.start : MainAxisAlignment.center,
+          mainAxisAlignment: isExtended
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.center,
           children: [
             Container(
               width: 40,
@@ -379,6 +393,7 @@ class AppSideNavigation extends ConsumerWidget {
   }
 
   Widget _buildFooter(BuildContext context, WidgetRef ref) {
+    final l10n = _getAppLocalizations(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Padding(
@@ -394,12 +409,10 @@ class AppSideNavigation extends ConsumerWidget {
           const SizedBox(height: 8),
           // Theme toggle button
           Tooltip(
-            message: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+            message: isDark ? l10n.theme_switch_light : l10n.theme_switch_dark,
             child: Semantics(
               button: true,
-              label: isDark
-                  ? 'Switch to Light appearance mode'
-                  : 'Switch to Dark appearance mode',
+              label: isDark ? l10n.theme_switch_light : l10n.theme_switch_dark,
               child: InkWell(
                 onTap: () {
                   ref.read(themeProvider.notifier).toggleTheme();
@@ -416,14 +429,16 @@ class AppSideNavigation extends ConsumerWidget {
                         : MainAxisAlignment.center,
                     children: [
                       Icon(
-                        isDark ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
+                        isDark
+                            ? Icons.light_mode_outlined
+                            : Icons.dark_mode_outlined,
                         color: BrandColors.neutral,
                         size: 20,
                       ),
                       if (isExtended) ...[
                         const SizedBox(width: 12),
                         Text(
-                          isDark ? 'Light Mode' : 'Dark Mode',
+                          isDark ? l10n.light_mode : l10n.dark_mode,
                           style: GoogleFonts.ibmPlexSans(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
@@ -440,10 +455,10 @@ class AppSideNavigation extends ConsumerWidget {
           const SizedBox(height: 4),
           // Collapse / Expand toggle button
           Tooltip(
-            message: isExtended ? 'Collapse sidebar' : 'Expand sidebar',
+            message: isExtended ? l10n.collapse_sidebar : l10n.expand_sidebar,
             child: Semantics(
               button: true,
-              label: isExtended ? 'Collapse side navigation' : 'Expand side navigation',
+              label: isExtended ? l10n.collapse_side_nav : l10n.expand_side_nav,
               child: InkWell(
                 onTap: onToggleExtended,
                 borderRadius: BorderRadius.circular(8),
@@ -467,7 +482,7 @@ class AppSideNavigation extends ConsumerWidget {
                       if (isExtended) ...[
                         const SizedBox(width: 12),
                         Text(
-                          'Collapse',
+                          l10n.collapse,
                           style: GoogleFonts.ibmPlexSans(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,

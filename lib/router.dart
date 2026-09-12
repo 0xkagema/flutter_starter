@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'core/providers/auth.dart';
 import 'extensions.dart';
+import 'l10n/app_localizations.dart';
 import 'presentation/pages/auth/otp.dart';
 import 'presentation/pages/auth/password_reset_email.dart';
 import 'presentation/pages/auth/reset_password.dart';
@@ -56,7 +57,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     router.go('/');
                     // Show a success toast after successful sign-in
                     if (context.mounted) {
-                      context.showSuccessToast('Signed in successfully');
+                      final l10n = AppLocalizations.of(context);
+                      context.showSuccessToast(
+                        l10n?.signin_success ?? 'Signed in successfully',
+                      );
                     }
                   } catch (e) {
                     if (context.mounted) {

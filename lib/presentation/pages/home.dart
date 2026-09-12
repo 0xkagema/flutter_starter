@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../theme/theme.dart';
+
+AppLocalizations _getAppLocalizations(BuildContext context) {
+  return AppLocalizations.of(context) ??
+      lookupAppLocalizations(const Locale('en'));
+}
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,11 +16,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = _getAppLocalizations(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
+      appBar: AppBar(title: Text(l10n.home)),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000),
@@ -45,7 +50,9 @@ class HomePage extends StatelessWidget {
                       end: Alignment.bottomRight,
                       colors: [
                         BrandColors.primary.withValues(alpha: 0.12),
-                        BrandColors.tertiary.withValues(alpha: isDark ? 0.3 : 0.05),
+                        BrandColors.tertiary.withValues(
+                          alpha: isDark ? 0.3 : 0.05,
+                        ),
                       ],
                     ),
                   ),
@@ -72,16 +79,18 @@ class HomePage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Flutter Starter Template',
+                                  l10n.starter_template_title,
                                   style: GoogleFonts.ibmPlexSans(
                                     fontSize: 22,
                                     fontWeight: FontWeight.w700,
-                                    color: isDark ? BrandColors.white : BrandColors.darkGrey,
+                                    color: isDark
+                                        ? BrandColors.white
+                                        : BrandColors.darkGrey,
                                   ),
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  'Responsive adaptive layout with declarative routing',
+                                  l10n.starter_template_subtitle,
                                   style: GoogleFonts.ibmPlexSans(
                                     fontSize: 14,
                                     color: BrandColors.neutral,
@@ -94,7 +103,7 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: AppSpacing.md),
                       Text(
-                        'This starter template includes an adaptive navigation shell that seamlessly transitions between a side rail on desktop and a bottom navigation bar on mobile devices.',
+                        l10n.starter_template_description,
                         style: GoogleFonts.ibmPlexSans(
                           fontSize: 14,
                           height: 1.5,
@@ -112,7 +121,7 @@ class HomePage extends StatelessWidget {
               Semantics(
                 header: true,
                 child: Text(
-                  'Quick Navigation',
+                  l10n.quick_navigation,
                   style: GoogleFonts.ibmPlexSans(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -129,22 +138,22 @@ class HomePage extends StatelessWidget {
 
                   final cards = [
                     _QuickNavCard(
-                      title: 'Books',
-                      description: 'Browse your reading collection and discover new titles.',
+                      title: l10n.books,
+                      description: l10n.quick_nav_books_description,
                       icon: Icons.menu_book_rounded,
                       color: BrandColors.primary,
                       onTap: () => context.go('/books'),
                     ),
                     _QuickNavCard(
-                      title: 'Profile',
-                      description: 'View your reading statistics and account information.',
+                      title: l10n.profile,
+                      description: l10n.quick_nav_profile_description,
                       icon: Icons.person_rounded,
                       color: BrandColors.secondary,
                       onTap: () => context.go('/profile'),
                     ),
                     _QuickNavCard(
-                      title: 'Settings',
-                      description: 'Customize theme appearance and application preferences.',
+                      title: l10n.settings,
+                      description: l10n.quick_nav_settings_description,
                       icon: Icons.settings_rounded,
                       color: BrandColors.tertiary,
                       onTap: () => context.go('/settings'),
@@ -154,24 +163,30 @@ class HomePage extends StatelessWidget {
                   if (isWide) {
                     return Row(
                       children: cards
-                          .map((card) => Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: AppSpacing.xs,
-                                  ),
-                                  child: card,
+                          .map(
+                            (card) => Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: AppSpacing.xs,
                                 ),
-                              ))
+                                child: card,
+                              ),
+                            ),
+                          )
                           .toList(),
                     );
                   }
 
                   return Column(
                     children: cards
-                        .map((card) => Padding(
-                              padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                              child: card,
-                            ))
+                        .map(
+                          (card) => Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: AppSpacing.md,
+                            ),
+                            child: card,
+                          ),
+                        )
                         .toList(),
                   );
                 },
@@ -253,7 +268,7 @@ class _QuickNavCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Explore',
+                    _getAppLocalizations(context).explore,
                     style: GoogleFonts.ibmPlexSans(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,

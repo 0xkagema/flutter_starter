@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../l10n/app_localizations.dart';
+
+AppLocalizations _getAppLocalizations(BuildContext context) {
+  return AppLocalizations.of(context) ??
+      lookupAppLocalizations(const Locale('en'));
+}
+
 class SignupCredentials {
   final String password;
   final String email;
@@ -17,7 +24,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  static const _labels = ['Too weak', 'Weak', 'Fair', 'Good', 'Strong'];
   String _password = '';
 
   bool _agreed = false;
@@ -35,6 +41,14 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = _getAppLocalizations(context);
+    final labels = [
+      l10n.strength_too_weak,
+      l10n.strength_weak,
+      l10n.strength_fair,
+      l10n.strength_good,
+      l10n.strength_strong,
+    ];
     final colors = [
       scheme.error,
       scheme.error,
@@ -47,35 +61,35 @@ class _SignUpPageState extends State<SignUpPage> {
         padding: const EdgeInsets.all(24),
         children: [
           Text(
-            'Get started free',
+            l10n.get_started_free,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 20),
-          const TextField(
+          TextField(
             decoration: InputDecoration(
-              labelText: 'Full name',
-              prefixIcon: Icon(Icons.person_outline),
-              border: OutlineInputBorder(),
+              labelText: l10n.full_name,
+              prefixIcon: const Icon(Icons.person_outline),
+              border: const OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 16),
-          const TextField(
+          TextField(
             decoration: InputDecoration(
-              labelText: 'Email',
-              prefixIcon: Icon(Icons.mail_outline),
-              border: OutlineInputBorder(),
+              labelText: l10n.email,
+              prefixIcon: const Icon(Icons.mail_outline),
+              border: const OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 16),
           TextField(
             obscureText: true,
             onChanged: (v) => setState(() => _password = v),
-            decoration: const InputDecoration(
-              labelText: 'Password',
-              prefixIcon: Icon(Icons.lock_outline),
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              labelText: l10n.password,
+              prefixIcon: const Icon(Icons.lock_outline),
+              border: const OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 12),
@@ -98,7 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Strength: ${_labels[_strength]}',
+            l10n.password_strength(labels[_strength]),
             style: theme.textTheme.bodySmall?.copyWith(
               color: scheme.onSurfaceVariant,
             ),
@@ -109,9 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
             onChanged: (v) => setState(() => _agreed = v ?? false),
             controlAffinity: ListTileControlAffinity.leading,
             contentPadding: EdgeInsets.zero,
-            title: const Text(
-              'I agree to the Terms of Service and Privacy Policy',
-            ),
+            title: Text(l10n.agree_terms),
           ),
           const SizedBox(height: 8),
           SizedBox(
@@ -123,12 +135,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       context.go('/2fa');
                     }
                   : null,
-              child: const Text('Create account'),
+              child: Text(l10n.create_account),
             ),
           ),
         ],
       ),
-      appBar: AppBar(title: const Text('Create Account')),
+      appBar: AppBar(title: Text(l10n.create_account)),
     );
   }
 }
