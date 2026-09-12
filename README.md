@@ -6,15 +6,15 @@ A Flutter starter template to quickly bootstrap projects
 
 
 ## intl supported pages
-[ ] settings
-[ ] profile
-[ ] home
-[ ] books
-[ ] otp
-[ ] password_reset_email
-[ ] reset_password
-[ ] sign_in
-[ ] sign_up
-[*] nav
+[x] settings
+[x] profile
+[x] home
+[x] books
+[x] otp
+[x] password_reset_email
+[x] reset_password
+[x] sign_in
+[x] sign_up
+[x] nav
 
 

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/extensions.dart';
+import 'package:flutter_starter/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+
+AppLocalizations _getAppLocalizations(BuildContext context) {
+  return AppLocalizations.of(context) ??
+      lookupAppLocalizations(const Locale('en'));
+}
 
 class PasswordResetEmailPage extends StatefulWidget {
   const PasswordResetEmailPage({super.key});
@@ -16,6 +22,8 @@ class _PasswordResetEmailPageState extends State<PasswordResetEmailPage> {
   bool _isSuccess = false;
 
   Widget _successMessage(String email) {
+    final l10n = _getAppLocalizations(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
@@ -27,7 +35,7 @@ class _PasswordResetEmailPageState extends State<PasswordResetEmailPage> {
         ),
         SizedBox(height: 5),
         Text(
-          'A password reset link has been sent to $email. Please check your email to reset your password.',
+          l10n.password_reset_email_sent(email),
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         SizedBox(height: 5),
@@ -36,7 +44,7 @@ class _PasswordResetEmailPageState extends State<PasswordResetEmailPage> {
             //navigate back to the sign-in page
             context.go('/sign-in');
           },
-          child: const Text('Back to Sign In'),
+          child: Text(l10n.back_to_sign_in),
         ),
       ],
     );
@@ -44,6 +52,8 @@ class _PasswordResetEmailPageState extends State<PasswordResetEmailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = _getAppLocalizations(context);
+
     return Scaffold(
       body: Center(
         child: Card(
@@ -57,18 +67,18 @@ class _PasswordResetEmailPageState extends State<PasswordResetEmailPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Reset Password',
+                        l10n.reset_password,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       // instructions
                       SizedBox(height: 5),
                       Text(
-                        'Enter your email address below and we will send you a link to reset your password.',
+                        l10n.password_reset_instructions,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       SizedBox(height: 5),
                       TextField(
-                        decoration: const InputDecoration(labelText: 'Email'),
+                        decoration: InputDecoration(labelText: l10n.email),
                         controller: _emailController,
                       ),
                       SizedBox(height: 5),
@@ -82,7 +92,7 @@ class _PasswordResetEmailPageState extends State<PasswordResetEmailPage> {
                                 //navigate back to the sign-in page
                                 context.go('/sign-in');
                               },
-                              child: const Text('Cancel'),
+                              child: Text(l10n.cancel),
                             ),
                             SizedBox(width: 5),
 
@@ -95,10 +105,11 @@ class _PasswordResetEmailPageState extends State<PasswordResetEmailPage> {
                                     const Duration(seconds: 3),
                                   ); // Simulate a network call
                                   // Handle password reset logic here
+                                  if (!context.mounted) return;
                                   final email = _emailController.text;
                                   // You can call your password reset function here
                                   context.showSuccessToast(
-                                    'Password reset requested for email: $email',
+                                    l10n.password_reset_requested(email),
                                   );
 
                                   setState(() {
@@ -106,11 +117,11 @@ class _PasswordResetEmailPageState extends State<PasswordResetEmailPage> {
                                   });
                                 } catch (e) {
                                   context.showErrorToast(
-                                    'An error occurred: $e',
+                                    l10n.error_occurred(e.toString()),
                                   );
                                 }
                               },
-                              child: const Text('Send Reset Link'),
+                              child: Text(l10n.send_reset_link),
                             ),
                           ],
                         ),

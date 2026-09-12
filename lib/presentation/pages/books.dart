@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../theme/theme.dart';
+
+AppLocalizations _getAppLocalizations(BuildContext context) {
+  return AppLocalizations.of(context) ??
+      lookupAppLocalizations(const Locale('en'));
+}
+
+String _categoryLabel(AppLocalizations l10n, String category) =>
+    switch (category) {
+      'All' => l10n.category_all,
+      'Engineering' => l10n.engineering,
+      'Design' => l10n.design,
+      'Product' => l10n.product,
+      'Productivity' => l10n.productivity,
+      _ => l10n.category_all,
+    };
+
+String _statusLabel(AppLocalizations l10n, String status) => switch (status) {
+  'Completed' => l10n.status_completed,
+  'Reading' => l10n.status_reading,
+  _ => l10n.status_wishlist,
+};
 
 class BookItem {
   final String id;
@@ -94,14 +116,13 @@ class _BooksPageState extends State<BooksPage> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = _getAppLocalizations(context);
     final filteredBooks = _selectedCategory == 'All'
         ? sampleBooks
         : sampleBooks.where((b) => b.category == _selectedCategory).toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Books'),
-      ),
+      appBar: AppBar(title: Text(l10n.books)),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000),
@@ -115,19 +136,19 @@ class _BooksPageState extends State<BooksPage> {
               Semantics(
                 header: true,
                 child: Text(
-                  'Your Reading Library',
+                  l10n.your_reading_library,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: isDark ? BrandColors.white : BrandColors.darkGrey,
-                      ),
+                    fontWeight: FontWeight.w700,
+                    color: isDark ? BrandColors.white : BrandColors.darkGrey,
+                  ),
                 ),
               ),
               const SizedBox(height: AppSpacing.xs),
               Text(
-                'Explore books, track reading milestones, and manage your collection.',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: BrandColors.neutral,
-                    ),
+                l10n.books_subtitle_description,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: BrandColors.neutral),
               ),
               const SizedBox(height: AppSpacing.md),
 
@@ -141,21 +162,25 @@ class _BooksPageState extends State<BooksPage> {
                       padding: const EdgeInsets.only(right: AppSpacing.sm),
                       child: FilterChip(
                         selected: isSelected,
-                        label: Text(category),
+                        label: Text(_categoryLabel(l10n, category)),
                         onSelected: (selected) {
                           setState(() {
                             _selectedCategory = category;
                           });
                         },
-                        selectedColor:
-                            BrandColors.primary.withValues(alpha: 0.18),
+                        selectedColor: BrandColors.primary.withValues(
+                          alpha: 0.18,
+                        ),
                         checkmarkColor: BrandColors.primary,
                         labelStyle: GoogleFonts.ibmPlexSans(
                           color: isSelected
                               ? BrandColors.primary
-                              : (isDark ? BrandColors.white : BrandColors.darkGrey),
-                          fontWeight:
-                              isSelected ? FontWeight.w600 : FontWeight.w500,
+                              : (isDark
+                                    ? BrandColors.white
+                                    : BrandColors.darkGrey),
+                          fontWeight: isSelected
+                              ? FontWeight.w600
+                              : FontWeight.w500,
                         ),
                       ),
                     );
@@ -233,6 +258,7 @@ class _BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = _getAppLocalizations(context);
     final statusColor = _getStatusColor(book.status);
 
     return Card(
@@ -307,7 +333,7 @@ class _BookCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(AppRadius.sm),
                         ),
                         child: Text(
-                          book.status,
+                          _statusLabel(l10n, book.status),
                           style: GoogleFonts.ibmPlexSans(
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
@@ -316,14 +342,20 @@ class _BookCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Icon(Icons.star_rounded, size: 16, color: BrandColors.warning),
+                      Icon(
+                        Icons.star_rounded,
+                        size: 16,
+                        color: BrandColors.warning,
+                      ),
                       const SizedBox(width: 2),
                       Text(
                         book.rating.toString(),
                         style: GoogleFonts.ibmPlexSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: isDark ? BrandColors.white : BrandColors.darkGrey,
+                          color: isDark
+                              ? BrandColors.white
+                              : BrandColors.darkGrey,
                         ),
                       ),
                     ],
@@ -336,16 +368,20 @@ class _BookCard extends StatelessWidget {
             Semantics(
               button: true,
               label: isFavorite
-                  ? 'Remove ${book.title} from favorites'
-                  : 'Add ${book.title} to favorites',
+                  ? l10n.remove_from_favorites(book.title)
+                  : l10n.add_to_favorites(book.title),
               child: IconButton(
                 onPressed: onToggleFavorite,
                 icon: Icon(
-                  isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                  isFavorite
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_border_rounded,
                   color: isFavorite ? BrandColors.primary : BrandColors.neutral,
                   size: 22,
                 ),
-                tooltip: isFavorite ? 'Remove from favorites' : 'Add to favorites',
+                tooltip: isFavorite
+                    ? l10n.remove_favorites_tooltip
+                    : l10n.add_favorites_tooltip,
               ),
             ),
           ],

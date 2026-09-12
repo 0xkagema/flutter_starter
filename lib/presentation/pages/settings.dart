@@ -89,7 +89,11 @@ class SettingsPage extends ConsumerWidget {
                     title: l10n.about_application,
                     icon: CupertinoIcons.info_circle,
                     onTap: () {
-                      showAboutDialog(context: context);
+                      showAboutDialog(
+                        context: context,
+                        applicationName: 'Starter App',
+                        applicationVersion: 'v1.0.0',
+                      );
                     },
                   ),
                   _CustomListTile(
@@ -145,7 +149,7 @@ class _LanguageListTile extends ConsumerWidget {
       title: languageName,
       icon: CupertinoIcons.globe,
       trailing: PopupMenuButton<Locale>(
-        tooltip: AppLocalizations.of(context)?.language ?? 'Language',
+        tooltip: _getAppLocalizations(context).language,
         onSelected: (value) {
           ref.read(localeProvider.notifier).setLocale(value);
         },

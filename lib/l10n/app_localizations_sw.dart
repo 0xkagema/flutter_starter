@@ -126,4 +126,272 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get send_feedback => 'Tuma Maoni';
+
+  @override
+  String get sign_out => 'Toka';
+
+  @override
+  String get sign_out_confirmation =>
+      'Je, una uhakika unataka kutoka kwenye akaunti yako?';
+
+  @override
+  String get cancel => 'Ghairi';
+
+  @override
+  String get signout_success => 'Umetoka kwa mafanikio';
+
+  @override
+  String get starter_template_title => 'Kiolezo cha Flutter Starter';
+
+  @override
+  String get starter_template_subtitle =>
+      'Mpangilio unaojibadilisha na uelekezaji wa njia';
+
+  @override
+  String get starter_template_description =>
+      'Kiolezo hiki kinajumuisha kiunzi cha urambazaji kinachobadilika kutoka reli ya kando kwenye eneo-kazi hadi upau wa urambazaji chini kwenye simu.';
+
+  @override
+  String get quick_navigation => 'Urambazaji wa Haraka';
+
+  @override
+  String get quick_nav_books_description =>
+      'Vinjari mkusanyo wako wa usomaji na ugundue vichwa vipya.';
+
+  @override
+  String get quick_nav_profile_description =>
+      'Angalia takwimu zako za usomaji na taarifa za akaunti.';
+
+  @override
+  String get quick_nav_settings_description =>
+      'Badilisha mwonekano wa mandhari na mapendeleo ya programu.';
+
+  @override
+  String get explore => 'Vinjari';
+
+  @override
+  String get your_reading_library => 'Maktaba Yako ya Usomaji';
+
+  @override
+  String get books_subtitle_description =>
+      'Vinjari vitabu, fuatilia malengo ya usomaji, na simamia mkusanyo wako.';
+
+  @override
+  String get category_all => 'Zote';
+
+  @override
+  String get engineering => 'Uhandisi';
+
+  @override
+  String get design => 'Ubunifu';
+
+  @override
+  String get product => 'Bidhaa';
+
+  @override
+  String get productivity => 'Tija';
+
+  @override
+  String get status_completed => 'Imekamilika';
+
+  @override
+  String get status_reading => 'Inasomwa';
+
+  @override
+  String get status_wishlist => 'Orodha ya Matamanio';
+
+  @override
+  String add_to_favorites(Object title) {
+    return 'Ongeza $title kwenye vipendwa';
+  }
+
+  @override
+  String remove_from_favorites(Object title) {
+    return 'Ondoa $title kwenye vipendwa';
+  }
+
+  @override
+  String get add_favorites_tooltip => 'Ongeza kwenye vipendwa';
+
+  @override
+  String get remove_favorites_tooltip => 'Ondoa kwenye vipendwa';
+
+  @override
+  String get pro_member => 'Mwanachama wa Pro';
+
+  @override
+  String get books_read => 'Vitabu Vilivyosomwa';
+
+  @override
+  String get in_progress => 'Zinazoendelea';
+
+  @override
+  String get wishlist => 'Orodha ya Matamanio';
+
+  @override
+  String get account_settings => 'Mipangilio ya Akaunti';
+
+  @override
+  String get personal_information => 'Taarifa za Kibinafsi';
+
+  @override
+  String get personal_information_subtitle =>
+      'Sasisha jina, barua pepe, na nambari ya simu';
+
+  @override
+  String get notification_preferences => 'Mapendeleo ya Arifa';
+
+  @override
+  String get notification_preferences_subtitle =>
+      'Chaguzi za arifa, barua pepe, na muhtasari';
+
+  @override
+  String get security_password => 'Usalama na Nenosiri';
+
+  @override
+  String get security_password_subtitle =>
+      'Uthibitishaji wa hatua mbili na usalama wa kuingia';
+
+  @override
+  String get personal_info_up_to_date => 'Taarifa za kibinafsi zimesasishwa';
+
+  @override
+  String get notifications_configured => 'Arifa zimesanidiwa';
+
+  @override
+  String get security_settings_healthy => 'Mipangilio ya usalama iko sawa';
+
+  @override
+  String get sign_out_account => 'Toka kwenye akaunti yako';
+
+  @override
+  String get verification => 'Uthibitishaji';
+
+  @override
+  String get two_factor_auth => 'Uthibitishaji wa vipengele viwili';
+
+  @override
+  String otp_code_sent_to(Object digits, Object phone) {
+    return 'Ingiza msimbo wa tarakimu $digits uliotumwa kwa $phone';
+  }
+
+  @override
+  String resend_code_in(Object time) {
+    return 'Tuma tena msimbo katika $time';
+  }
+
+  @override
+  String get resend_code => 'Tuma tena msimbo';
+
+  @override
+  String get reset_password => 'Weka Upya Nenosiri';
+
+  @override
+  String password_reset_email_sent(Object email) {
+    return 'Kiungo cha kuweka upya nenosiri kimetumwa kwa $email. Tafadhali angalia barua pepe yako ili kuweka upya nenosiri lako.';
+  }
+
+  @override
+  String get back_to_sign_in => 'Rudi kwenye Kuingia';
+
+  @override
+  String get password_reset_instructions =>
+      'Ingiza anwani yako ya barua pepe hapa chini na tutakutumia kiungo cha kuweka upya nenosiri lako.';
+
+  @override
+  String get email => 'Barua Pepe';
+
+  @override
+  String get send_reset_link => 'Tuma Kiungo cha Kuweka Upya';
+
+  @override
+  String password_reset_requested(Object email) {
+    return 'Uweka upya wa nenosiri umeombwa kwa barua pepe: $email';
+  }
+
+  @override
+  String error_occurred(Object error) {
+    return 'Hitilafu imetokea: $error';
+  }
+
+  @override
+  String get set_new_password => 'Weka Nenosiri Jipya';
+
+  @override
+  String get new_password_instructions =>
+      'Nenosiri lako jipya lazima liwe tofauti na nenosiri zilizotumiwa hapo awali.';
+
+  @override
+  String get new_password => 'Nenosiri Jipya';
+
+  @override
+  String get confirm_password => 'Thibitisha Nenosiri';
+
+  @override
+  String get rule_min_chars => 'Angalau herufi 8';
+
+  @override
+  String get rule_has_number => 'Ina nambari';
+
+  @override
+  String get rule_passwords_match => 'Nenosiri yanalingana';
+
+  @override
+  String get sign_in => 'Ingia';
+
+  @override
+  String get username => 'Jina la Mtumiaji';
+
+  @override
+  String get password => 'Nenosiri';
+
+  @override
+  String get forgot_password => 'Umesahau Nenosiri?';
+
+  @override
+  String get signin_success => 'Umeingia kwa Mafanikio';
+
+  @override
+  String get create_account => 'Unda Akaunti';
+
+  @override
+  String get get_started_free => 'Anza Bure';
+
+  @override
+  String get full_name => 'Jina Kamili';
+
+  @override
+  String password_strength(Object value) {
+    return 'Nguvu: $value';
+  }
+
+  @override
+  String get strength_too_weak => 'Dhaifu Sana';
+
+  @override
+  String get strength_weak => 'Dhaifu';
+
+  @override
+  String get strength_fair => 'Wastani';
+
+  @override
+  String get strength_good => 'Nzuri';
+
+  @override
+  String get strength_strong => 'Imara';
+
+  @override
+  String get agree_terms => 'Ninakubali Sheria za Huduma na Sera ya Faragha';
+
+  @override
+  String get toast_error_title => 'Hitilafu';
+
+  @override
+  String get toast_success_title => 'Mafanikio';
+
+  @override
+  String get toast_info_title => 'Taarifa';
+
+  @override
+  String get toast_warning_title => 'Tahadhari';
 }

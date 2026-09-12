@@ -17,25 +17,24 @@ class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
   Future<void> _handleSignOut(BuildContext context, WidgetRef ref) async {
+    final l10n = _getAppLocalizations(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
-          title: const Text('Sign Out'),
-          content: const Text(
-            'Are you sure you want to sign out of your account?',
-          ),
+          title: Text(l10n.sign_out),
+          content: Text(l10n.sign_out_confirmation),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text('Cancel'),
+              child: Text(l10n.cancel),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: BrandColors.danger,
               ),
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: const Text('Sign Out'),
+              child: Text(l10n.sign_out),
             ),
           ],
         );
@@ -45,7 +44,7 @@ class ProfilePage extends ConsumerWidget {
     if (confirmed == true && context.mounted) {
       await ref.read(authProvider.notifier).signOut();
       if (context.mounted) {
-        context.showInfoToast('Signed out successfully');
+        context.showInfoToast(l10n.signout_success);
         context.go('/sign-in');
       }
     }
@@ -134,7 +133,7 @@ class ProfilePage extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(AppRadius.xxl),
                         ),
                         child: Text(
-                          'Pro Member',
+                          l10n.pro_member,
                           style: GoogleFonts.ibmPlexSans(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -153,11 +152,11 @@ class ProfilePage extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          _buildStatItem(context, '12', 'Books Read'),
+                          _buildStatItem(context, '12', l10n.books_read),
                           _buildDivider(isDark),
-                          _buildStatItem(context, '3', 'In Progress'),
+                          _buildStatItem(context, '3', l10n.in_progress),
                           _buildDivider(isDark),
-                          _buildStatItem(context, '8', 'Wishlist'),
+                          _buildStatItem(context, '8', l10n.wishlist),
                         ],
                       ),
                     ],
@@ -169,7 +168,7 @@ class ProfilePage extends ConsumerWidget {
 
               // Settings and preferences section
               Text(
-                'ACCOUNT SETTINGS',
+                l10n.account_settings.toUpperCase(),
                 style: GoogleFonts.ibmPlexSans(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -194,11 +193,11 @@ class ProfilePage extends ConsumerWidget {
                   children: [
                     ListTile(
                       leading: const Icon(Icons.badge_outlined),
-                      title: const Text('Personal Information'),
-                      subtitle: const Text('Update name, email, and phone'),
+                      title: Text(l10n.personal_information),
+                      subtitle: Text(l10n.personal_information_subtitle),
                       trailing: const Icon(Icons.chevron_right_rounded),
                       onTap: () {
-                        context.showInfoToast('Personal Info is up to date');
+                        context.showInfoToast(l10n.personal_info_up_to_date);
                       },
                     ),
                     Divider(
@@ -209,11 +208,11 @@ class ProfilePage extends ConsumerWidget {
                     ),
                     ListTile(
                       leading: const Icon(Icons.notifications_outlined),
-                      title: const Text('Notification Preferences'),
-                      subtitle: const Text('Push, email, and digest options'),
+                      title: Text(l10n.notification_preferences),
+                      subtitle: Text(l10n.notification_preferences_subtitle),
                       trailing: const Icon(Icons.chevron_right_rounded),
                       onTap: () {
-                        context.showInfoToast('Notifications configured');
+                        context.showInfoToast(l10n.notifications_configured);
                       },
                     ),
                     Divider(
@@ -224,11 +223,11 @@ class ProfilePage extends ConsumerWidget {
                     ),
                     ListTile(
                       leading: const Icon(Icons.security_outlined),
-                      title: const Text('Security & Password'),
-                      subtitle: const Text('2FA and login security'),
+                      title: Text(l10n.security_password),
+                      subtitle: Text(l10n.security_password_subtitle),
                       trailing: const Icon(Icons.chevron_right_rounded),
                       onTap: () {
-                        context.showInfoToast('Security settings healthy');
+                        context.showInfoToast(l10n.security_settings_healthy);
                       },
                     ),
                   ],
@@ -240,7 +239,7 @@ class ProfilePage extends ConsumerWidget {
               // Sign Out Button
               Semantics(
                 button: true,
-                label: 'Sign out of your account',
+                label: l10n.sign_out_account,
                 child: OutlinedButton.icon(
                   style: OutlinedButton.styleFrom(
                     foregroundColor: BrandColors.danger,
@@ -256,7 +255,7 @@ class ProfilePage extends ConsumerWidget {
                     color: BrandColors.danger,
                   ),
                   label: Text(
-                    'Sign Out',
+                    l10n.sign_out,
                     style: GoogleFonts.ibmPlexSans(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
