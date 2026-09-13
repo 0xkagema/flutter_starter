@@ -127,5 +127,32 @@
   "toast_error_title": "Hitilafu",
   "toast_success_title": "Mafanikio",
   "toast_info_title": "Taarifa",
-  "toast_warning_title": "Tahadhari"
+  "toast_warning_title": "Tahadhari",
+
+  "error_connection_timeout": "Muda wa muunganisho umeisha. Tafadhali angalia muunganisho wako wa intaneti.",
+  "error_connection_failed": "Imeshindwa kuunganisha kwenye seva. Hakikisha seva inafanya kazi.",
+  "error_request_cancelled": "Ombi lilighairiwa.",
+  "error_unexpected_network": "Hitilafu isiyotarajiwa ya mtandao imetokea.",
+  "error_not_logged_in": "Hujaingia. Tafadhali ingia ili kuendelea.",
+  "error_permission_denied": "Huna ruhusa ya kufanya kitendo hiki.",
+  "error_resource_not_found": "Rasilimali iliyoombwa haikupatikana.",
+  "error_bad_request_invalid": "Ombi batili.",
+  "error_server_status": "Hitilafu ya seva ({statusCode}). Tafadhali jaribu tena baadaye.",
+  "@error_server_status": {
+    "placeholders": {
+      "statusCode": {
+        "type": "String"
+      }
+    }
+  },
+  "error_http_status": "Ombi limeshindwa kwa msimbo wa hali {statusCode}.",
+  "@error_http_status": {
+    "placeholders": {
+      "statusCode": {
+        "type": "String"
+      }
+    }
+  },
+  "error_no_refresh_token": "Mtumiaji hajaingia. Hakuna tokeni ya kusasisha iliyopatikana.",
+  "error_upload_file_required": "Lazima utoe filePath au fileBytes kwa ajili ya kupakia."
 }

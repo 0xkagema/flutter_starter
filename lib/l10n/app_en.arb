@@ -127,5 +127,32 @@
   "toast_error_title": "Error",
   "toast_success_title": "Success",
   "toast_info_title": "Info",
-  "toast_warning_title": "Warning"
+  "toast_warning_title": "Warning",
+
+  "error_connection_timeout": "Connection timed out. Please check your internet connection.",
+  "error_connection_failed": "Unable to connect to server. Ensure the backend is running.",
+  "error_request_cancelled": "Request was cancelled.",
+  "error_unexpected_network": "An unexpected network error occurred.",
+  "error_not_logged_in": "You are not logged in. Please sign in to continue.",
+  "error_permission_denied": "You do not have permission to perform this action.",
+  "error_resource_not_found": "The requested resource was not found.",
+  "error_bad_request_invalid": "Invalid request.",
+  "error_server_status": "Server error ({statusCode}). Please try again later.",
+  "@error_server_status": {
+    "placeholders": {
+      "statusCode": {
+        "type": "String"
+      }
+    }
+  },
+  "error_http_status": "Request failed with status code {statusCode}.",
+  "@error_http_status": {
+    "placeholders": {
+      "statusCode": {
+        "type": "String"
+      }
+    }
+  },
+  "error_no_refresh_token": "User is not logged in. No refresh token found.",
+  "error_upload_file_required": "Either filePath or fileBytes must be provided for upload."
 }

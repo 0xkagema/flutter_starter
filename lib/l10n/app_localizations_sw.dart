@@ -394,4 +394,49 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get toast_warning_title => 'Tahadhari';
+
+  @override
+  String get error_connection_timeout =>
+      'Muda wa muunganisho umeisha. Tafadhali angalia muunganisho wako wa intaneti.';
+
+  @override
+  String get error_connection_failed =>
+      'Imeshindwa kuunganisha kwenye seva. Hakikisha seva inafanya kazi.';
+
+  @override
+  String get error_request_cancelled => 'Ombi lilighairiwa.';
+
+  @override
+  String get error_unexpected_network =>
+      'Hitilafu isiyotarajiwa ya mtandao imetokea.';
+
+  @override
+  String get error_not_logged_in => 'Hujaingia. Tafadhali ingia ili kuendelea.';
+
+  @override
+  String get error_permission_denied => 'Huna ruhusa ya kufanya kitendo hiki.';
+
+  @override
+  String get error_resource_not_found => 'Rasilimali iliyoombwa haikupatikana.';
+
+  @override
+  String get error_bad_request_invalid => 'Ombi batili.';
+
+  @override
+  String error_server_status(String statusCode) {
+    return 'Hitilafu ya seva ($statusCode). Tafadhali jaribu tena baadaye.';
+  }
+
+  @override
+  String error_http_status(String statusCode) {
+    return 'Ombi limeshindwa kwa msimbo wa hali $statusCode.';
+  }
+
+  @override
+  String get error_no_refresh_token =>
+      'Mtumiaji hajaingia. Hakuna tokeni ya kusasisha iliyopatikana.';
+
+  @override
+  String get error_upload_file_required =>
+      'Lazima utoe filePath au fileBytes kwa ajili ya kupakia.';
 }

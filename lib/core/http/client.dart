@@ -3,6 +3,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../l10n/app_localizations.dart';
+import '../../l10n/app_localizations_en.dart';
+import '../../l10n/app_localizations_sw.dart';
+
 // ============================================================================
 // 1. EXCEPTIONS
 // ============================================================================
@@ -338,7 +342,7 @@ class ApiClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      throw _handleError(e);
+      throw await _handleError(e);
     }
   }
 
@@ -361,7 +365,7 @@ class ApiClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      throw _handleError(e);
+      throw await _handleError(e);
     }
   }
 
@@ -384,7 +388,7 @@ class ApiClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      throw _handleError(e);
+      throw await _handleError(e);
     }
   }
 
@@ -407,7 +411,7 @@ class ApiClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      throw _handleError(e);
+      throw await _handleError(e);
     }
   }
 
@@ -430,7 +434,7 @@ class ApiClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      throw _handleError(e);
+      throw await _handleError(e);
     }
   }
 
@@ -467,8 +471,8 @@ class ApiClient {
           filename: filename,
         );
       } else {
-        throw const ApiException(
-          'Either filePath or fileBytes must be provided for upload.',
+        throw ApiException(
+          (await _resolveLocalizations()).error_upload_file_required,
         );
       }
 
@@ -493,7 +497,7 @@ class ApiClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      throw _handleError(e);
+      throw await _handleError(e);
     }
   }
 
@@ -521,7 +525,7 @@ class ApiClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      throw _handleError(e);
+      throw await _handleError(e);
     }
   }
 
@@ -553,8 +557,8 @@ class ApiClient {
   Future<String?> refreshAuthToken() async {
     final refresh = tokenStorage.refreshToken;
     if (refresh == null || refresh.isEmpty) {
-      throw const UnauthorizedException(
-        'User is not logged in. No refresh token found.',
+      throw UnauthorizedException(
+        (await _resolveLocalizations()).error_no_refresh_token,
       );
     }
 
@@ -618,25 +622,39 @@ class ApiClient {
     return opts.copyWith(extra: extra);
   }
 
+  /// SharedPreferences key used by the app to persist the active locale.
+  /// Must stay in sync with the locale provider (`core/providers/locale.dart`).
+  static const String _localePrefsKey = 'app_locale';
+
+  /// Resolves the locale-aware [AppLocalizations] bundle for this HTTP client
+  /// using the locale saved by the app, falling back to English.
+  Future<AppLocalizations> _resolveLocalizations() async {
+    final prefs = await SharedPreferences.getInstance();
+    final code = prefs.getString(_localePrefsKey) ?? 'en';
+    return switch (code) {
+      'sw' => AppLocalizationsSw(),
+      _ => AppLocalizationsEn(),
+    };
+  }
+
   /// Parses [DioException] into descriptive typed exceptions, extracting
   /// Django REST Framework error formats (`detail`, field errors, `non_field_errors`).
-  ApiException _handleError(DioException error) {
+  /// User-facing messages are resolved through [AppLocalizations].
+  Future<ApiException> _handleError(DioException error) async {
+    final l10n = await _resolveLocalizations();
+
     if (error.type == DioExceptionType.connectionTimeout ||
         error.type == DioExceptionType.sendTimeout ||
         error.type == DioExceptionType.receiveTimeout) {
-      return const NetworkException(
-        'Connection timed out. Please check your internet connection.',
-      );
+      return NetworkException(l10n.error_connection_timeout);
     }
 
     if (error.type == DioExceptionType.connectionError) {
-      return const NetworkException(
-        'Unable to connect to server. Ensure the backend is running.',
-      );
+      return NetworkException(l10n.error_connection_failed);
     }
 
     if (error.type == DioExceptionType.cancel) {
-      return const ApiException('Request was cancelled.');
+      return ApiException(l10n.error_request_cancelled);
     }
 
     final response = error.response;
@@ -653,7 +671,7 @@ class ApiClient {
               lower.contains('token not valid') ||
               lower.contains('token is invalid') ||
               lower.contains('token has expired')) {
-            message = 'You are not logged in. Please sign in to continue.';
+            message = l10n.error_not_logged_in;
           }
           return UnauthorizedException(
             message,
@@ -665,7 +683,7 @@ class ApiClient {
           return ForbiddenException(
             parsedMessage.isNotEmpty
                 ? parsedMessage
-                : 'You do not have permission to perform this action.',
+                : l10n.error_permission_denied,
             statusCode: 403,
             data: response.data,
           );
@@ -674,14 +692,16 @@ class ApiClient {
           return NotFoundException(
             parsedMessage.isNotEmpty
                 ? parsedMessage
-                : 'The requested resource was not found.',
+                : l10n.error_resource_not_found,
             statusCode: 404,
             data: response.data,
           );
 
         case 400:
           return BadRequestException(
-            parsedMessage.isNotEmpty ? parsedMessage : 'Invalid request.',
+            parsedMessage.isNotEmpty
+                ? parsedMessage
+                : l10n.error_bad_request_invalid,
             statusCode: 400,
             data: response.data,
           );
@@ -693,7 +713,7 @@ class ApiClient {
           return ServerException(
             parsedMessage.isNotEmpty
                 ? parsedMessage
-                : 'Server error ($statusCode). Please try again later.',
+                : l10n.error_server_status('$statusCode'),
             statusCode: statusCode,
             data: response.data,
           );
@@ -702,16 +722,14 @@ class ApiClient {
           return ApiException(
             parsedMessage.isNotEmpty
                 ? parsedMessage
-                : 'Request failed with status code $statusCode.',
+                : l10n.error_http_status('$statusCode'),
             statusCode: statusCode,
             data: response.data,
           );
       }
     }
 
-    return ApiException(
-      error.message ?? 'An unexpected network error occurred.',
-    );
+    return ApiException(error.message ?? l10n.error_unexpected_network);
   }
 
   /// Extracts readable error strings from DRF error structures:

@@ -811,6 +811,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Warning'**
   String get toast_warning_title;
+
+  /// No description provided for @error_connection_timeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection timed out. Please check your internet connection.'**
+  String get error_connection_timeout;
+
+  /// No description provided for @error_connection_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to connect to server. Ensure the backend is running.'**
+  String get error_connection_failed;
+
+  /// No description provided for @error_request_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Request was cancelled.'**
+  String get error_request_cancelled;
+
+  /// No description provided for @error_unexpected_network.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected network error occurred.'**
+  String get error_unexpected_network;
+
+  /// No description provided for @error_not_logged_in.
+  ///
+  /// In en, this message translates to:
+  /// **'You are not logged in. Please sign in to continue.'**
+  String get error_not_logged_in;
+
+  /// No description provided for @error_permission_denied.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to perform this action.'**
+  String get error_permission_denied;
+
+  /// No description provided for @error_resource_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'The requested resource was not found.'**
+  String get error_resource_not_found;
+
+  /// No description provided for @error_bad_request_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid request.'**
+  String get error_bad_request_invalid;
+
+  /// No description provided for @error_server_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error ({statusCode}). Please try again later.'**
+  String error_server_status(String statusCode);
+
+  /// No description provided for @error_http_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Request failed with status code {statusCode}.'**
+  String error_http_status(String statusCode);
+
+  /// No description provided for @error_no_refresh_token.
+  ///
+  /// In en, this message translates to:
+  /// **'User is not logged in. No refresh token found.'**
+  String get error_no_refresh_token;
+
+  /// No description provided for @error_upload_file_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Either filePath or fileBytes must be provided for upload.'**
+  String get error_upload_file_required;
 }
 
 class _AppLocalizationsDelegate

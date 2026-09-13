@@ -393,4 +393,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get toast_warning_title => 'Warning';
+
+  @override
+  String get error_connection_timeout =>
+      'Connection timed out. Please check your internet connection.';
+
+  @override
+  String get error_connection_failed =>
+      'Unable to connect to server. Ensure the backend is running.';
+
+  @override
+  String get error_request_cancelled => 'Request was cancelled.';
+
+  @override
+  String get error_unexpected_network =>
+      'An unexpected network error occurred.';
+
+  @override
+  String get error_not_logged_in =>
+      'You are not logged in. Please sign in to continue.';
+
+  @override
+  String get error_permission_denied =>
+      'You do not have permission to perform this action.';
+
+  @override
+  String get error_resource_not_found =>
+      'The requested resource was not found.';
+
+  @override
+  String get error_bad_request_invalid => 'Invalid request.';
+
+  @override
+  String error_server_status(String statusCode) {
+    return 'Server error ($statusCode). Please try again later.';
+  }
+
+  @override
+  String error_http_status(String statusCode) {
+    return 'Request failed with status code $statusCode.';
+  }
+
+  @override
+  String get error_no_refresh_token =>
+      'User is not logged in. No refresh token found.';
+
+  @override
+  String get error_upload_file_required =>
+      'Either filePath or fileBytes must be provided for upload.';
 }
