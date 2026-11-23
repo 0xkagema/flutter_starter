@@ -313,6 +313,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get retry_action => 'Retry';
+
+  @override
   String get set_new_password => 'Set a new password';
 
   @override
@@ -441,4 +444,76 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get error_upload_file_required =>
       'Either filePath or fileBytes must be provided for upload.';
+
+  @override
+  String get auth_welcome_heading => 'Welcome to Flutter Starter';
+
+  @override
+  String get auth_welcome_subtitle =>
+      'Sign in to your account or create a new one to begin your reading journey.';
+
+  @override
+  String get auth_or => 'or';
+
+  @override
+  String get continue_action => 'Continue';
+
+  @override
+  String get continue_with_google => 'Continue with Google';
+
+  @override
+  String get continue_with_apple => 'Continue with Apple';
+
+  @override
+  String get feature_coming_soon => 'Coming soon';
+
+  @override
+  String get auth_new_here => 'New to the app?';
+
+  @override
+  String get auth_already_have_account => 'Already have an account?';
+
+  @override
+  String get otp_verify => 'Verify';
+
+  @override
+  String get otp_skip => 'Skip for now';
+
+  @override
+  String otp_code_sent_to_email(String digits, String email) {
+    return 'Enter the $digits-digit code sent to $email';
+  }
+
+  @override
+  String get otp_verified_success => 'Identity verified successfully';
+
+  @override
+  String get forgot_password_instructions =>
+      'Enter your email address and we\'ll send you a reset code and a link to restore access.';
+
+  @override
+  String get send_reset_code => 'Send Reset Code';
+
+  @override
+  String reset_code_sent(String email) {
+    return 'A reset code has been sent to $email. Continue to set your new password, or open the link in your email.';
+  }
+
+  @override
+  String get change_password => 'Change Password';
+
+  @override
+  String change_password_subtitle(String digits, String email) {
+    return 'Enter the $digits-digit code sent to $email, or use the reset link from your email, then choose a new password.';
+  }
+
+  @override
+  String get reset_code => 'Reset Code';
+
+  @override
+  String get reset_code_hint => 'Enter the code from your email';
+
+  @override
+  String get password_changed_success =>
+      'Your password has been changed. Please sign in with your new password.';
 }

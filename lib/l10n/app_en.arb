@@ -98,6 +98,10 @@
   "send_reset_link": "Send Reset Link",
   "password_reset_requested": "Password reset requested for email: {email}",
   "error_occurred": "An error occurred: {error}",
+  "retry_action": "Retry",
+  "@retry_action": {
+    "description": "Label for an action that retries a failed operation"
+  },
 
   "set_new_password": "Set a new password",
   "new_password_instructions": "Your new password must be different from previously used passwords.",
@@ -154,5 +158,60 @@
     }
   },
   "error_no_refresh_token": "User is not logged in. No refresh token found.",
-  "error_upload_file_required": "Either filePath or fileBytes must be provided for upload."
+  "error_upload_file_required": "Either filePath or fileBytes must be provided for upload.",
+
+  "auth_welcome_heading": "Welcome to Flutter Starter",
+  "auth_welcome_subtitle": "Sign in to your account or create a new one to begin your reading journey.",
+  "auth_or": "or",
+  "continue_action": "Continue",
+  "@continue_action": {
+    "description": "Label for a button that advances to the next step"
+  },
+  "continue_with_google": "Continue with Google",
+  "continue_with_apple": "Continue with Apple",
+  "feature_coming_soon": "Coming soon",
+  "auth_new_here": "New to the app?",
+  "auth_already_have_account": "Already have an account?",
+
+  "otp_verify": "Verify",
+  "otp_skip": "Skip for now",
+  "otp_code_sent_to_email": "Enter the {digits}-digit code sent to {email}",
+  "@otp_code_sent_to_email": {
+    "placeholders": {
+      "digits": {
+        "type": "String"
+      },
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "otp_verified_success": "Identity verified successfully",
+
+  "forgot_password_instructions": "Enter your email address and we'll send you a reset code and a link to restore access.",
+  "send_reset_code": "Send Reset Code",
+  "reset_code_sent": "A reset code has been sent to {email}. Continue to set your new password, or open the link in your email.",
+  "@reset_code_sent": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+
+  "change_password": "Change Password",
+  "change_password_subtitle": "Enter the {digits}-digit code sent to {email}, or use the reset link from your email, then choose a new password.",
+  "@change_password_subtitle": {
+    "placeholders": {
+      "digits": {
+        "type": "String"
+      },
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "reset_code": "Reset Code",
+  "reset_code_hint": "Enter the code from your email",
+  "password_changed_success": "Your password has been changed. Please sign in with your new password."
 }

@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4
 
+  cupertino_ui: any
+  material_ui: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

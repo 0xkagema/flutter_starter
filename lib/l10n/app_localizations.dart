@@ -656,6 +656,12 @@ abstract class AppLocalizations {
   /// **'An error occurred: {error}'**
   String error_occurred(Object error);
 
+  /// Label for an action that retries a failed operation
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry_action;
+
   /// No description provided for @set_new_password.
   ///
   /// In en, this message translates to:
@@ -883,6 +889,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Either filePath or fileBytes must be provided for upload.'**
   String get error_upload_file_required;
+
+  /// No description provided for @auth_welcome_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Flutter Starter'**
+  String get auth_welcome_heading;
+
+  /// No description provided for @auth_welcome_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to your account or create a new one to begin your reading journey.'**
+  String get auth_welcome_subtitle;
+
+  /// No description provided for @auth_or.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get auth_or;
+
+  /// Label for a button that advances to the next step
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continue_action;
+
+  /// No description provided for @continue_with_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get continue_with_google;
+
+  /// No description provided for @continue_with_apple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get continue_with_apple;
+
+  /// No description provided for @feature_coming_soon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get feature_coming_soon;
+
+  /// No description provided for @auth_new_here.
+  ///
+  /// In en, this message translates to:
+  /// **'New to the app?'**
+  String get auth_new_here;
+
+  /// No description provided for @auth_already_have_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get auth_already_have_account;
+
+  /// No description provided for @otp_verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get otp_verify;
+
+  /// No description provided for @otp_skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get otp_skip;
+
+  /// No description provided for @otp_code_sent_to_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the {digits}-digit code sent to {email}'**
+  String otp_code_sent_to_email(String digits, String email);
+
+  /// No description provided for @otp_verified_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity verified successfully'**
+  String get otp_verified_success;
+
+  /// No description provided for @forgot_password_instructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address and we\'ll send you a reset code and a link to restore access.'**
+  String get forgot_password_instructions;
+
+  /// No description provided for @send_reset_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Code'**
+  String get send_reset_code;
+
+  /// No description provided for @reset_code_sent.
+  ///
+  /// In en, this message translates to:
+  /// **'A reset code has been sent to {email}. Continue to set your new password, or open the link in your email.'**
+  String reset_code_sent(String email);
+
+  /// No description provided for @change_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get change_password;
+
+  /// No description provided for @change_password_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the {digits}-digit code sent to {email}, or use the reset link from your email, then choose a new password.'**
+  String change_password_subtitle(String digits, String email);
+
+  /// No description provided for @reset_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Code'**
+  String get reset_code;
+
+  /// No description provided for @reset_code_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the code from your email'**
+  String get reset_code_hint;
+
+  /// No description provided for @password_changed_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password has been changed. Please sign in with your new password.'**
+  String get password_changed_success;
 }
 
 class _AppLocalizationsDelegate

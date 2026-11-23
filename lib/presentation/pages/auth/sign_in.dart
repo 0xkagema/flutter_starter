@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../l10n/app_localizations.dart';
@@ -78,7 +78,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         padding: const EdgeInsets.all(16.0),
                         child: TextButton(
                           onPressed: () {
-                            context.go('/password-reset-email');
+                            context.go('/auth/forgot-password');
                           },
                           child: Text(l10n.forgot_password),
                         ),
@@ -123,6 +123,22 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        l10n.auth_new_here,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () => context.go('/auth/sign-up'),
+                      child: Text(l10n.create_account),
+                    ),
+                  ],
                 ),
               ],
             ),

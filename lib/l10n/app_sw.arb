@@ -98,6 +98,7 @@
   "send_reset_link": "Tuma Kiungo cha Kuweka Upya",
   "password_reset_requested": "Uweka upya wa nenosiri umeombwa kwa barua pepe: {email}",
   "error_occurred": "Hitilafu imetokea: {error}",
+  "retry_action": "Jaribu tena",
 
   "set_new_password": "Weka Nenosiri Jipya",
   "new_password_instructions": "Nenosiri lako jipya lazima liwe tofauti na nenosiri zilizotumiwa hapo awali.",
@@ -154,5 +155,57 @@
     }
   },
   "error_no_refresh_token": "Mtumiaji hajaingia. Hakuna tokeni ya kusasisha iliyopatikana.",
-  "error_upload_file_required": "Lazima utoe filePath au fileBytes kwa ajili ya kupakia."
+  "error_upload_file_required": "Lazima utoe filePath au fileBytes kwa ajili ya kupakia.",
+
+  "auth_welcome_heading": "Karibu kwenye Flutter Starter",
+  "auth_welcome_subtitle": "Ingia kwenye akaunti yako au unda mpya kuanza safari yako ya usomaji.",
+  "auth_or": "au",
+  "continue_action": "Endelea",
+  "continue_with_google": "Endelea na Google",
+  "continue_with_apple": "Endelea na Apple",
+  "feature_coming_soon": "Inakuja karibuni",
+  "auth_new_here": "Wewe ni mpya kwenye programu?",
+  "auth_already_have_account": "Tayari una akaunti?",
+
+  "otp_verify": "Thibitisha",
+  "otp_skip": "Ruka kwa sasa",
+  "otp_code_sent_to_email": "Ingiza msimbo wa tarakimu {digits} uliotumwa kwa {email}",
+  "@otp_code_sent_to_email": {
+    "placeholders": {
+      "digits": {
+        "type": "String"
+      },
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "otp_verified_success": "Utambulisho umethibitishwa kwa mafanikio",
+
+  "forgot_password_instructions": "Ingiza anwani yako ya barua pepe na tutakutumia msimbo wa kuweka upya na kiungo cha kurejesha ufikiaji.",
+  "send_reset_code": "Tuma Msimbo wa Kuweka Upya",
+  "reset_code_sent": "Msimbo wa kuweka upya umetumwa kwa {email}. Endelea kuweka nenosiri lako jipya, au fungua kiungo kwenye barua pepe yako.",
+  "@reset_code_sent": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+
+  "change_password": "Badilisha Nenosiri",
+  "change_password_subtitle": "Ingiza msimbo wa tarakimu {digits} uliotumwa kwa {email}, au tumia kiungo cha kuweka upya kutoka barua pepe yako, kisha chagua nenosiri jipya.",
+  "@change_password_subtitle": {
+    "placeholders": {
+      "digits": {
+        "type": "String"
+      },
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "reset_code": "Msimbo wa Kuweka Upya",
+  "reset_code_hint": "Ingiza msimbo kutoka barua pepe yako",
+  "password_changed_success": "Nenosiri lako limebadilishwa. Tafadhali ingia kwa nenosiri lako jipya."
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../l10n/app_localizations.dart';
@@ -9,10 +9,17 @@ AppLocalizations _getAppLocalizations(BuildContext context) {
 }
 
 class SignupCredentials {
-  final String password;
+  final String username;
+  final String fullName;
   final String email;
+  final String password;
 
-  SignupCredentials(this.email, this.password);
+  SignupCredentials({
+    required this.username,
+    required this.fullName,
+    required this.email,
+    required this.password,
+  });
 }
 
 class SignUpPage extends StatefulWidget {
@@ -24,9 +31,14 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  String _password = '';
+  final _usernameController = TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
+  String _password = '';
   bool _agreed = false;
+  bool _isLoading = false;
 
   int get _strength {
     var score = 0;
@@ -35,6 +47,31 @@ class _SignUpPageState extends State<SignUpPage> {
     if (RegExp(r'[0-9]').hasMatch(_password)) score++;
     if (RegExp(r'[!@#$%^&*]').hasMatch(_password)) score++;
     return score;
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submit() async {
+    setState(() => _isLoading = true);
+    try {
+      widget.onSignUp(
+        SignupCredentials(
+          username: _usernameController.text.trim(),
+          fullName: _fullNameController.text.trim(),
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
   }
 
   @override
@@ -68,6 +105,16 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           const SizedBox(height: 20),
           TextField(
+            controller: _usernameController,
+            decoration: InputDecoration(
+              labelText: l10n.username,
+              prefixIcon: const Icon(Icons.alternate_email_rounded),
+              border: const OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _fullNameController,
             decoration: InputDecoration(
               labelText: l10n.full_name,
               prefixIcon: const Icon(Icons.person_outline),
@@ -76,6 +123,8 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           const SizedBox(height: 16),
           TextField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: l10n.email,
               prefixIcon: const Icon(Icons.mail_outline),
@@ -84,6 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           const SizedBox(height: 16),
           TextField(
+            controller: _passwordController,
             obscureText: true,
             onChanged: (v) => setState(() => _password = v),
             decoration: InputDecoration(
@@ -129,14 +179,31 @@ class _SignUpPageState extends State<SignUpPage> {
           SizedBox(
             height: 52,
             child: FilledButton(
-              onPressed: _agreed
-                  ? () {
-                      //TODO: Implement sign up logic here
-                      context.go('/2fa');
-                    }
-                  : null,
-              child: Text(l10n.create_account),
+              onPressed: _agreed && !_isLoading ? _submit : null,
+              child: _isLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : Text(l10n.create_account),
             ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Text(
+                  l10n.auth_already_have_account,
+                  style: theme.textTheme.bodyMedium,
+                ),
+              ),
+              TextButton(
+                onPressed: () => context.go('/auth/sign-in'),
+                child: Text(l10n.sign_in),
+              ),
+            ],
           ),
         ],
       ),

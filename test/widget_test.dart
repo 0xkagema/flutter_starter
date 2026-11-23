@@ -1,10 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_starter/presentation/pages/books.dart';
 import 'package:flutter_starter/presentation/pages/home.dart';
 import 'package:flutter_starter/presentation/pages/profile.dart';
 import 'package:flutter_starter/presentation/pages/settings.dart';
+import 'package:flutter_starter/presentation/pages/auth/auth_landing.dart';
+import 'package:flutter_starter/presentation/pages/auth/change_password.dart';
+import 'package:flutter_starter/presentation/pages/auth/forgot_password.dart';
+import 'package:flutter_starter/presentation/pages/auth/otp.dart';
 import 'package:flutter_starter/presentation/theme/theme.dart';
 import 'package:flutter_starter/presentation/widgets/nav.dart';
 
@@ -22,6 +26,8 @@ Widget _buildTestApp({
     ),
   );
 }
+
+void _noop() {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -257,6 +263,71 @@ void main() {
       expect(find.text('Settings'), findsOneWidget);
       expect(find.text('Dark Mode'), findsOneWidget);
       expect(find.text('About Application'), findsOneWidget);
+    });
+  });
+
+  group('Auth flow pages render properly', () {
+    testWidgets('AuthLandingPage renders welcome and both entry points', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const ProviderScope(child: MaterialApp(home: AuthLandingPage())),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Welcome to Flutter Starter'), findsOneWidget);
+      expect(find.text('Sign in'), findsOneWidget);
+      expect(find.text('Create Account'), findsOneWidget);
+      expect(find.text('Continue with Google'), findsOneWidget);
+      expect(find.text('Continue with Apple'), findsOneWidget);
+    });
+
+    testWidgets('ForgotPasswordPage renders the reset request form', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const ProviderScope(child: MaterialApp(home: ForgotPasswordPage())),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Reset Password'), findsWidgets);
+      expect(find.text('Send Reset Code'), findsOneWidget);
+      expect(find.text('Back to Sign In'), findsOneWidget);
+    });
+
+    testWidgets('ChangePasswordPage renders code and password fields', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const ProviderScope(child: MaterialApp(home: ChangePasswordPage())),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Change Password'), findsWidgets);
+      expect(find.text('Reset Code'), findsOneWidget);
+      expect(find.text('New password'), findsOneWidget);
+      expect(find.text('Confirm password'), findsOneWidget);
+    });
+
+    testWidgets('OtpPage renders verification boxes and actions', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const ProviderScope(
+          child: MaterialApp(
+            home: OtpPage(
+              email: 'test@example.com',
+              onVerified: _noop,
+              onSkip: _noop,
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Verify'), findsOneWidget);
+      expect(find.text('Skip for now'), findsOneWidget);
+      expect(find.text('Verification'), findsOneWidget);
     });
   });
 }

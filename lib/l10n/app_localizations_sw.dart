@@ -315,6 +315,9 @@ class AppLocalizationsSw extends AppLocalizations {
   }
 
   @override
+  String get retry_action => 'Jaribu tena';
+
+  @override
   String get set_new_password => 'Weka Nenosiri Jipya';
 
   @override
@@ -439,4 +442,76 @@ class AppLocalizationsSw extends AppLocalizations {
   @override
   String get error_upload_file_required =>
       'Lazima utoe filePath au fileBytes kwa ajili ya kupakia.';
+
+  @override
+  String get auth_welcome_heading => 'Karibu kwenye Flutter Starter';
+
+  @override
+  String get auth_welcome_subtitle =>
+      'Ingia kwenye akaunti yako au unda mpya kuanza safari yako ya usomaji.';
+
+  @override
+  String get auth_or => 'au';
+
+  @override
+  String get continue_action => 'Endelea';
+
+  @override
+  String get continue_with_google => 'Endelea na Google';
+
+  @override
+  String get continue_with_apple => 'Endelea na Apple';
+
+  @override
+  String get feature_coming_soon => 'Inakuja karibuni';
+
+  @override
+  String get auth_new_here => 'Wewe ni mpya kwenye programu?';
+
+  @override
+  String get auth_already_have_account => 'Tayari una akaunti?';
+
+  @override
+  String get otp_verify => 'Thibitisha';
+
+  @override
+  String get otp_skip => 'Ruka kwa sasa';
+
+  @override
+  String otp_code_sent_to_email(String digits, String email) {
+    return 'Ingiza msimbo wa tarakimu $digits uliotumwa kwa $email';
+  }
+
+  @override
+  String get otp_verified_success => 'Utambulisho umethibitishwa kwa mafanikio';
+
+  @override
+  String get forgot_password_instructions =>
+      'Ingiza anwani yako ya barua pepe na tutakutumia msimbo wa kuweka upya na kiungo cha kurejesha ufikiaji.';
+
+  @override
+  String get send_reset_code => 'Tuma Msimbo wa Kuweka Upya';
+
+  @override
+  String reset_code_sent(String email) {
+    return 'Msimbo wa kuweka upya umetumwa kwa $email. Endelea kuweka nenosiri lako jipya, au fungua kiungo kwenye barua pepe yako.';
+  }
+
+  @override
+  String get change_password => 'Badilisha Nenosiri';
+
+  @override
+  String change_password_subtitle(String digits, String email) {
+    return 'Ingiza msimbo wa tarakimu $digits uliotumwa kwa $email, au tumia kiungo cha kuweka upya kutoka barua pepe yako, kisha chagua nenosiri jipya.';
+  }
+
+  @override
+  String get reset_code => 'Msimbo wa Kuweka Upya';
+
+  @override
+  String get reset_code_hint => 'Ingiza msimbo kutoka barua pepe yako';
+
+  @override
+  String get password_changed_success =>
+      'Nenosiri lako limebadilishwa. Tafadhali ingia kwa nenosiri lako jipya.';
 }
